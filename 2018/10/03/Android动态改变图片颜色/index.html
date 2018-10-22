@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+
+  
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="方法一、通过属性动画来改变图片的颜色1234567891011121314  if (android.os.Build.VERSION.SDK_INT &amp;gt;= android.os.Build.VERSION_CODES.LOLLIPOP) &amp;#123;                    ObjectAnimator objectAnimatorTran = ObjectAnimator.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android动态改变图片颜色">
+<meta property="og:url" content="https://ruanyandong.github.io/2018/10/03/Android动态改变图片颜色/index.html">
+<meta property="og:site_name" content="灵魂长者的博客">
+<meta property="og:description" content="方法一、通过属性动画来改变图片的颜色1234567891011121314  if (android.os.Build.VERSION.SDK_INT &amp;gt;= android.os.Build.VERSION_CODES.LOLLIPOP) &amp;#123;                    ObjectAnimator objectAnimatorTran = ObjectAnimator.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-03T07:27:03.554Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android动态改变图片颜色">
+<meta name="twitter:description" content="方法一、通过属性动画来改变图片的颜色1234567891011121314  if (android.os.Build.VERSION.SDK_INT &amp;gt;= android.os.Build.VERSION_CODES.LOLLIPOP) &amp;#123;                    ObjectAnimator objectAnimatorTran = ObjectAnimator.">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="灵魂长者的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://ruanyandong.github.io/2018/10/03/Android动态改变图片颜色/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Android动态改变图片颜色 | 灵魂长者的博客</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+  
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/ruanyandong">
+	<img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub">
+	</a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">灵魂长者的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">科技改变世界</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2018/10/03/Android动态改变图片颜色/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阮严冬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵魂长者的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android动态改变图片颜色
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-03 14:52:08 / 修改时间：15:27:03" itemprop="dateCreated datePublished" datetime="2018-10-03T14:52:08+08:00">2018-10-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="方法一、通过属性动画来改变图片的颜色"><a href="#方法一、通过属性动画来改变图片的颜色" class="headerlink" title="方法一、通过属性动画来改变图片的颜色"></a>方法一、通过属性动画来改变图片的颜色</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  if (android.os.Build.VERSION.SDK_INT &gt;= android.os.Build.VERSION_CODES.LOLLIPOP) &#123;</span><br><span class="line">                    ObjectAnimator objectAnimatorTran = ObjectAnimator.ofArgb(mSplashImage, &quot;ColorFilter&quot;, getResources().getColor(R.color.colorWhite), getResources().getColor(R.color.colorAccent));</span><br><span class="line">                    objectAnimatorTran.setDuration(5000);</span><br><span class="line">                    //objectAnimatorTran.setRepeatCount(-1);</span><br><span class="line">                    objectAnimatorTran.start();</span><br><span class="line">                </span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line"># 方法二</span><br><span class="line">## 关键点</span><br><span class="line">获取目标图标的所有像素点</span><br><span class="line">验证像素点的alpha值，是否透明</span><br><span class="line">在不透明的像素点上修改为我们想要的颜色</span><br><span class="line">根据输入的颜色值改变图标颜色</span><br></pre></td></tr></table></figure>
+<p>final EditText et = findViewById(R.id.et);<br>final ImageView iv = findViewById(R.id.iv);<br>iv.setOnClickListener(new View.OnClickListener() {<br>    @Override<br>    public void onClick(View view) {<br>        //获取ImageView上的图片<br>        iv.setDrawingCacheEnabled(true);<br>        Bitmap bitmap = iv.getDrawingCache();</p>
+<pre><code>    //按照输入的颜色转换图标
+    String s = et.getText().toString();
+    Bitmap newBitmap = changeBitmapColor(bitmap,s);
+    iv.setDrawingCacheEnabled(false);
+    iv.setImageBitmap(newBitmap);
+}
+</code></pre><p>});<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## 实现方法：</span><br></pre></td></tr></table></figure></p>
+<p>public Bitmap changeBitmapColor(Bitmap sourceBitmap,String aimColorStr){<br>    //验证参数合理<br>    if(sourceBitmap == null || sourceBitmap.isRecycled()){<br>        throw new RuntimeException(“source exception!!!”);<br>    }<br>    int aimColor;<br>    try {<br>        aimColor = Color.parseColor(aimColorStr.trim());<br>    } catch (Exception e){<br>        throw new RuntimeException(“aimColorStr error!!!”);<br>    }<br>    //按照图标的大小创建数组<br>    int mBitmapWidth = sourceBitmap.getWidth();<br>    int mBitmapHeight = sourceBitmap.getHeight();<br>    int mArrayColorLengh = mBitmapWidth * mBitmapHeight;<br>    int[] mArrayColor = new int[mArrayColorLengh];</p>
+<pre><code>//循环bitmap 的每个像素点，查看alpha值
+int count = 0;
+for (int i = 0; i &lt; mBitmapHeight; i++) {
+    for (int j = 0; j &lt; mBitmapWidth; j++) {
+        //获得Bitmap 图片中每一个点的color颜色值
+        int color = sourceBitmap.getPixel(j, i);
+        int a = Color.alpha(color);
+        if(a != 0){//不等于0 即不透明部分，设置成我们想要的颜色
+            mArrayColor[count] = aimColor;
+        } else {//透明仍然为透明
+            int aimColor2 = Color.parseColor(&quot;#00000000&quot;);
+            mArrayColor[count] = aimColor2;
+        }
+        count++;
+    }
+}
+//根据数组创建新的Bitmap
+Bitmap newBitmap = Bitmap.createBitmap(mBitmapWidth,mBitmapHeight, Bitmap.Config.ARGB_8888);
+newBitmap.setPixels(mArrayColor,0,mBitmapWidth,0,0,mBitmapWidth,mBitmapHeight);
+return newBitmap;
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 方法三</span><br></pre></td></tr></table></figure>
+<pre><code>//提取图像Alpha位图  
+        public static Bitmap getAlphaBitmap(Bitmap mBitmap,int mColor) {  
+//          BitmapDrawable mBitmapDrawable = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.enemy_infantry_ninja);  
+//          Bitmap mBitmap = mBitmapDrawable.getBitmap();  
+
+            //BitmapDrawable的getIntrinsicWidth（）方法，Bitmap的getWidth（）方法  
+            //注意这两个方法的区别  
+            //Bitmap mAlphaBitmap = Bitmap.createBitmap(mBitmapDrawable.getIntrinsicWidth(), mBitmapDrawable.getIntrinsicHeight(), Config.ARGB_8888);  
+            Bitmap mAlphaBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), Config.ARGB_8888);  
+
+            Canvas mCanvas = new Canvas(mAlphaBitmap);  
+            Paint mPaint = new Paint();  
+
+            mPaint.setColor(mColor);  
+            //从原位图中提取只包含alpha的位图  
+            Bitmap alphaBitmap = mBitmap.extractAlpha();  
+            //在画布上（mAlphaBitmap）绘制alpha位图  
+            mCanvas.drawBitmap(alphaBitmap, 0, 0, mPaint);  
+
+            return mAlphaBitmap;  
+        }  
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 实现</span><br></pre></td></tr></table></figure>
+<p>   ImageView deviceIV.setDrawingCacheEnabled(true);<br>   Bitmap deviceBmp = deviceIV.getDrawingCache();<br>   int color = Color.parseColor(“#00000000”);<br>   Bitmap bitmap = getAlphaBitmap(deviceBmp,color);<br>   deviceIV.setImageBitmap(bitmap);<br>   时常会出现null，原因是超出系统提供最大的DrawingCache值，所以要在此代码前添加如下代码：<br>   deviceIV.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));<br>   deviceIV.layout(0, 0, deviceIV.getMeasuredWidth(), deviceIV.getMeasuredHeight());</p>
+<p><code>`</code></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+	
+
+    
+	
+	
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/02/吃苹果递归问题/" rel="next" title="吃苹果递归问题">
+                <i class="fa fa-chevron-left"></i> 吃苹果递归问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/03/android字体相关知识/" rel="prev" title="android字体相关知识">
+                android字体相关知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="阮严冬" />
+            
+              <p class="site-author-name" itemprop="name">阮严冬</p>
+              <p class="site-description motion-element" itemprop="description">一只程序猿</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#方法一、通过属性动画来改变图片的颜色"><span class="nav-number">1.</span> <span class="nav-text">方法一、通过属性动画来改变图片的颜色</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阮严冬</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.2.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+      .copy-btn {
+          display: inline-block;
+          padding: 6px 12px;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 20px;
+          color: #333;
+          white-space: nowrap;
+          vertical-align: middle;
+          cursor: pointer;
+          background-color: #eee;
+          background-image: linear-gradient(#fcfcfc, #eee);
+          border: 1px solid #d5d5d5;
+          border-radius: 3px;
+          user-select: none;
+      }
+
+      .highlight-wrap .copy-btn {
+          transition: opacity .3s ease-in-out;
+          opacity: 0;
+          padding: 2px 6px;
+          position: fixed;
+          right: 4px;
+          top: 8px;
+      }
+
+      .highlight-wrap:hover .copy-btn,
+      .highlight-wrap .copy-btn:focus {
+          opacity: 1
+      }
+
+      .highlight-wrap {
+          transform: translateZ(0);
+      }
+  </style>
+  <script>
+      $('.highlight').each(function(i, e) {
+          var $wrap = $('<div>').addClass('highlight-wrap')
+          $(e).after($wrap)
+          $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+              var code = $(e.target).parent().find('.code').find('.line').map(function(i, e) {
+                  return $(e).text()
+              }).toArray().join('\n')
+              var ta = document.createElement('textarea')
+              document.body.appendChild(ta)
+              ta.style.position = 'fixed'
+              ta.style.top = 0
+              ta.style.left = 0
+              ta.value = code
+              ta.select()
+              ta.focus()
+              document.execCommand('copy')
+              document.body.removeChild(ta)
+          })).append(e)
+      })
+  </script>
+
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="200" src="/js/src/canvas-nest.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+
+  
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="HTTP 方法：GET 对比 POST两种最常用的 HTTP 方法是：GET 和 POST。 什么是 HTTP？ 超文本传输协议（HTTP）的设计目的是保证客户机与服务器之间的通信。 HTTP 的工作方式是客户机与服务器之间的请求-应答协议。 web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。 举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Http的get和post的区别">
+<meta property="og:url" content="https://ruanyandong.github.io/2018/09/12/Http的get和post的区别/index.html">
+<meta property="og:site_name" content="灵魂长者的博客">
+<meta property="og:description" content="HTTP 方法：GET 对比 POST两种最常用的 HTTP 方法是：GET 和 POST。 什么是 HTTP？ 超文本传输协议（HTTP）的设计目的是保证客户机与服务器之间的通信。 HTTP 的工作方式是客户机与服务器之间的请求-应答协议。 web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。 举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-12T10:41:08.902Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Http的get和post的区别">
+<meta name="twitter:description" content="HTTP 方法：GET 对比 POST两种最常用的 HTTP 方法是：GET 和 POST。 什么是 HTTP？ 超文本传输协议（HTTP）的设计目的是保证客户机与服务器之间的通信。 HTTP 的工作方式是客户机与服务器之间的请求-应答协议。 web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。 举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="灵魂长者的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://ruanyandong.github.io/2018/09/12/Http的get和post的区别/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Http的get和post的区别 | 灵魂长者的博客</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+  
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/ruanyandong">
+	<img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub">
+	</a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">灵魂长者的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">科技改变世界</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2018/09/12/Http的get和post的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阮严冬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵魂长者的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Http的get和post的区别
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-12 17:34:24 / 修改时间：18:41:08" itemprop="dateCreated datePublished" datetime="2018-09-12T17:34:24+08:00">2018-09-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="HTTP-方法：GET-对比-POST"><a href="#HTTP-方法：GET-对比-POST" class="headerlink" title="HTTP 方法：GET 对比 POST"></a>HTTP 方法：GET 对比 POST</h1><h2 id="两种最常用的-HTTP-方法是：GET-和-POST。"><a href="#两种最常用的-HTTP-方法是：GET-和-POST。" class="headerlink" title="两种最常用的 HTTP 方法是：GET 和 POST。"></a>两种最常用的 HTTP 方法是：GET 和 POST。</h2><p> 什么是 HTTP？</p>
+<p>超文本传输协议（HTTP）的设计目的是保证客户机与服务器之间的通信。</p>
+<p>HTTP 的工作方式是客户机与服务器之间的请求-应答协议。</p>
+<p>web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。</p>
+<p>举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包含关于请求的状态信息以及可能被请求的内容。</p>
+<h2 id="两种-HTTP-请求方法：GET-和-POST"><a href="#两种-HTTP-请求方法：GET-和-POST" class="headerlink" title="两种 HTTP 请求方法：GET 和 POST"></a>两种 HTTP 请求方法：GET 和 POST</h2><p>在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。</p>
+<pre><code>GET - 从指定的资源请求数据。
+POST - 向指定的资源提交要被处理的数据
+</code></pre><h3 id="GET-方法"><a href="#GET-方法" class="headerlink" title="GET 方法"></a>GET 方法</h3><p>请注意，查询字符串（名称/值对）是在 GET 请求的 URL 中发送的：</p>
+<p>/test/demo_form.asp?name1=value1&amp;name2=value2</p>
+<p>有关 GET 请求的其他一些注释：</p>
+<pre><code>GET 请求可被缓存
+GET 请求保留在浏览器历史记录中
+GET 请求可被收藏为书签
+GET 请求不应在处理敏感数据时使用
+GET 请求有长度限制
+GET 请求只应当用于取回数据
+</code></pre><h3 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h3><p>请注意，查询字符串（名称/值对）是在 POST 请求的 HTTP 消息主体中发送的：</p>
+<p>POST /test/demo_form.asp HTTP/1.1<br>Host: w3schools.com<br>name1=value1&amp;name2=value2</p>
+<p>有关 POST 请求的其他一些注释：</p>
+<pre><code>POST 请求不会被缓存
+POST 请求不会保留在浏览器历史记录中
+POST 不能被收藏为书签
+POST 请求对数据长度没有要求
+</code></pre><p>比较 GET 与 POST</p>
+<p>下面的表格比较了两种 HTTP 方法：GET 和 POST。<br>                          GET==============================POST</p>
+<h3 id="后退按钮-刷新"><a href="#后退按钮-刷新" class="headerlink" title="后退按钮/刷新"></a>后退按钮/刷新</h3><pre><code>GET:无害==========POST:数据会被重新提交（浏览器应该告知用户数据会被重新提交）。
+</code></pre><h3 id="书签"><a href="#书签" class="headerlink" title="书签"></a>书签</h3><pre><code>GET:可收藏为书签==========POST:不可收藏为书签
+</code></pre><h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><pre><code>GET:能被缓存==========POST:不能缓存
+</code></pre><h3 id="编码类型"><a href="#编码类型" class="headerlink" title="编码类型"></a>编码类型</h3><pre><code>GET:application/x-www-form-urlencoded==========POST:application/x-www-form-urlencoded 或 multipart/form-data。为二进制数据使用多重编码。
+</code></pre><h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><pre><code>GET:参数保留在浏览器历史中。==========POST:参数不会保存在浏览器历史中。
+</code></pre><h3 id="对数据长度的限制"><a href="#对数据长度的限制" class="headerlink" title="对数据长度的限制"></a>对数据长度的限制</h3><pre><code>GET:是的。当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符）。==========POST:无限制。
+</code></pre><h3 id="对数据类型的限制"><a href="#对数据类型的限制" class="headerlink" title="对数据类型的限制"></a>对数据类型的限制</h3><pre><code>GET:只允许 ASCII 字符。==========POST:没有限制。也允许二进制数据。
+</code></pre><h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><pre><code>GET:与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL 的一部分。在发送密码或其他敏感信息时绝不要使用 GET ！==========POST: POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web 服务器日志中。
+</code></pre><h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><pre><code>GET:数据在 URL 中对所有人都是可见的。==========POST:数据不会显示在 URL 中。
+</code></pre><h2 id="下面的表格列出了其他一些-HTTP-请求方法："><a href="#下面的表格列出了其他一些-HTTP-请求方法：" class="headerlink" title="下面的表格列出了其他一些 HTTP 请求方法："></a>下面的表格列出了其他一些 HTTP 请求方法：</h2><p>方法     描述<br>HEAD     与 GET 相同，但只返回 HTTP 报头，不返回文档主体。<br>PUT     上传指定的 URI 表示。<br>DELETE     删除指定资源。<br>OPTIONS     返回服务器支持的 HTTP 方法。<br>CONNECT     把请求连接转换到透明的 TCP/IP 通道。</p>
+<h1 id="当浏览器从-web-服务器请求服务时，可能会发生错误。从而有可能会返回下面的一系列状态消息："><a href="#当浏览器从-web-服务器请求服务时，可能会发生错误。从而有可能会返回下面的一系列状态消息：" class="headerlink" title="当浏览器从 web 服务器请求服务时，可能会发生错误。从而有可能会返回下面的一系列状态消息："></a>当浏览器从 web 服务器请求服务时，可能会发生错误。从而有可能会返回下面的一系列状态消息：</h1><h2 id="1xx-信息"><a href="#1xx-信息" class="headerlink" title="1xx: 信息"></a>1xx: 信息</h2><p>消息:     描述:<br>100 Continue     服务器仅接收到部分请求，但是一旦服务器并没有拒绝该请求，客户端应该继续发送其余的请求。<br>101 Switching Protocols     服务器转换协议：服务器将遵从客户的请求转换到另外一种协议。</p>
+<h2 id="2xx-成功"><a href="#2xx-成功" class="headerlink" title="2xx: 成功"></a>2xx: 成功</h2><p>消息:     描述:<br>200 OK     请求成功（其后是对GET和POST请求的应答文档。）<br>201 Created     请求被创建完成，同时新的资源被创建。<br>202 Accepted     供处理的请求已被接受，但是处理未完成。<br>203 Non-authoritative Information     文档已经正常地返回，但一些应答头可能不正确，因为使用的是文档的拷贝。<br>204 No Content     没有新文档。浏览器应该继续显示原来的文档。如果用户定期地刷新页面，而Servlet可以确定用户文档足够新，这个状态代码是很有用的。<br>205 Reset Content     没有新文档。但浏览器应该重置它所显示的内容。用来强制浏览器清除表单输入内容。<br>206 Partial Content     客户发送了一个带有Range头的GET请求，服务器完成了它。</p>
+<h2 id="3xx-重定向"><a href="#3xx-重定向" class="headerlink" title="3xx: 重定向"></a>3xx: 重定向</h2><p>消息:     描述:<br>300 Multiple Choices     多重选择。链接列表。用户可以选择某链接到达目的地。最多允许五个地址。<br>301 Moved Permanently     所请求的页面已经转移至新的url。<br>302 Found     所请求的页面已经临时转移至新的url。<br>303 See Other     所请求的页面可在别的url下被找到。<br>304 Not Modified     未按预期修改文档。客户端有缓冲的文档并发出了一个条件性的请求（一般是提供If-Modified-Since头表示客户只想比指定日期更新的文档）。服务器告诉客户，原来缓冲的文档还可以继续使用。<br>305 Use Proxy     客户请求的文档应该通过Location头所指明的代理服务器提取。<br>306 Unused     此代码被用于前一版本。目前已不再使用，但是代码依然被保留。<br>307 Temporary Redirect     被请求的页面已经临时移至新的url。</p>
+<h2 id="4xx-客户端错误"><a href="#4xx-客户端错误" class="headerlink" title="4xx: 客户端错误"></a>4xx: 客户端错误</h2><p>消息:     描述:<br>400 Bad Request     服务器未能理解请求。<br>401 Unauthorized     被请求的页面需要用户名和密码。<br>402 Payment Required     此代码尚无法使用。<br>403 Forbidden     对被请求页面的访问被禁止。<br>404 Not Found     服务器无法找到被请求的页面。<br>405 Method Not Allowed     请求中指定的方法不被允许。<br>406 Not Acceptable     服务器生成的响应无法被客户端所接受。<br>407 Proxy Authentication Required     用户必须首先使用代理服务器进行验证，这样请求才会被处理。<br>408 Request Timeout     请求超出了服务器的等待时间。<br>409 Conflict     由于冲突，请求无法被完成。<br>410 Gone     被请求的页面不可用。<br>411 Length Required     “Content-Length” 未被定义。如果无此内容，服务器不会接受请求。<br>412 Precondition Failed     请求中的前提条件被服务器评估为失败。<br>413 Request Entity Too Large     由于所请求的实体的太大，服务器不会接受请求。<br>414 Request-url Too Long     由于url太长，服务器不会接受请求。当post请求被转换为带有很长的查询信息的get请求时，就会发生这种情况。<br>415 Unsupported Media Type     由于媒介类型不被支持，服务器不会接受请求。<br>416      服务器不能满足客户在请求中指定的Range头。<br>417 Expectation Failed      </p>
+<h2 id="5xx-服务器错误"><a href="#5xx-服务器错误" class="headerlink" title="5xx: 服务器错误"></a>5xx: 服务器错误</h2><p>消息:     描述:<br>500 Internal Server Error     请求未完成。服务器遇到不可预知的情况。<br>501 Not Implemented     请求未完成。服务器不支持所请求的功能。<br>502 Bad Gateway     请求未完成。服务器从上游服务器收到一个无效的响应。<br>503 Service Unavailable     请求未完成。服务器临时过载或当机。<br>504 Gateway Timeout     网关超时。<br>505 HTTP Version Not Supported     服务器不支持请求中指明的HTTP协议版本。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+	
+
+    
+	
+	
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/Http与Https的区别/" rel="next" title="Http与Https的区别">
+                <i class="fa fa-chevron-left"></i> Http与Https的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/18/ubuntu界面美化教程/" rel="prev" title="ubuntu界面美化教程">
+                ubuntu界面美化教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="阮严冬" />
+            
+              <p class="site-author-name" itemprop="name">阮严冬</p>
+              <p class="site-description motion-element" itemprop="description">一只程序猿</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-方法：GET-对比-POST"><span class="nav-number">1.</span> <span class="nav-text">HTTP 方法：GET 对比 POST</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种最常用的-HTTP-方法是：GET-和-POST。"><span class="nav-number">1.1.</span> <span class="nav-text">两种最常用的 HTTP 方法是：GET 和 POST。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种-HTTP-请求方法：GET-和-POST"><span class="nav-number">1.2.</span> <span class="nav-text">两种 HTTP 请求方法：GET 和 POST</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GET-方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">GET 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST-方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">POST 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后退按钮-刷新"><span class="nav-number">1.2.3.</span> <span class="nav-text">后退按钮/刷新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书签"><span class="nav-number">1.2.4.</span> <span class="nav-text">书签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存"><span class="nav-number">1.2.5.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码类型"><span class="nav-number">1.2.6.</span> <span class="nav-text">编码类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#历史"><span class="nav-number">1.2.7.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对数据长度的限制"><span class="nav-number">1.2.8.</span> <span class="nav-text">对数据长度的限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对数据类型的限制"><span class="nav-number">1.2.9.</span> <span class="nav-text">对数据类型的限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">1.2.10.</span> <span class="nav-text">安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-number">1.2.11.</span> <span class="nav-text">可见性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下面的表格列出了其他一些-HTTP-请求方法："><span class="nav-number">1.3.</span> <span class="nav-text">下面的表格列出了其他一些 HTTP 请求方法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当浏览器从-web-服务器请求服务时，可能会发生错误。从而有可能会返回下面的一系列状态消息："><span class="nav-number">2.</span> <span class="nav-text">当浏览器从 web 服务器请求服务时，可能会发生错误。从而有可能会返回下面的一系列状态消息：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1xx-信息"><span class="nav-number">2.1.</span> <span class="nav-text">1xx: 信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2xx-成功"><span class="nav-number">2.2.</span> <span class="nav-text">2xx: 成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3xx-重定向"><span class="nav-number">2.3.</span> <span class="nav-text">3xx: 重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4xx-客户端错误"><span class="nav-number">2.4.</span> <span class="nav-text">4xx: 客户端错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5xx-服务器错误"><span class="nav-number">2.5.</span> <span class="nav-text">5xx: 服务器错误</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阮严冬</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.2.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+      .copy-btn {
+          display: inline-block;
+          padding: 6px 12px;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 20px;
+          color: #333;
+          white-space: nowrap;
+          vertical-align: middle;
+          cursor: pointer;
+          background-color: #eee;
+          background-image: linear-gradient(#fcfcfc, #eee);
+          border: 1px solid #d5d5d5;
+          border-radius: 3px;
+          user-select: none;
+      }
+
+      .highlight-wrap .copy-btn {
+          transition: opacity .3s ease-in-out;
+          opacity: 0;
+          padding: 2px 6px;
+          position: fixed;
+          right: 4px;
+          top: 8px;
+      }
+
+      .highlight-wrap:hover .copy-btn,
+      .highlight-wrap .copy-btn:focus {
+          opacity: 1
+      }
+
+      .highlight-wrap {
+          transform: translateZ(0);
+      }
+  </style>
+  <script>
+      $('.highlight').each(function(i, e) {
+          var $wrap = $('<div>').addClass('highlight-wrap')
+          $(e).after($wrap)
+          $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+              var code = $(e.target).parent().find('.code').find('.line').map(function(i, e) {
+                  return $(e).text()
+              }).toArray().join('\n')
+              var ta = document.createElement('textarea')
+              document.body.appendChild(ta)
+              ta.style.position = 'fixed'
+              ta.style.top = 0
+              ta.style.left = 0
+              ta.value = code
+              ta.select()
+              ta.focus()
+              document.execCommand('copy')
+              document.body.removeChild(ta)
+          })).append(e)
+      })
+  </script>
+
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="200" src="/js/src/canvas-nest.min.js"></script>
+
+
+</body>
+</html>
