@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2018-10-23T12:21:02.262Z</updated>
+  <updated>2018-10-28T10:40:11.496Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android事件分发</title>
+    <link href="https://ruanyandong.github.io/2018/10/28/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"/>
+    <id>https://ruanyandong.github.io/2018/10/28/Android事件分发/</id>
+    <published>2018-10-28T10:29:23.000Z</published>
+    <updated>2018-10-28T10:40:11.496Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一-概述"><a href="#一-概述" class="headerlink" title="一. 概述"></a>一. 概述</h1><p>1.只有view，ViewGroup，Activity 具有事件分发和消费的功能。<br>2.Activity因为上最先接触到触摸事件，因此Activity没有事件拦截方法。即没有onInterceptTouchEvent方法。<br>3.对于不能添加子控件的view，不能对事件进行分发和拦截，它只有onTouchEvent事件。</p><h1 id="二-三个方法"><a href="#二-三个方法" class="headerlink" title="二.三个方法"></a>二.三个方法</h1><ul><li><p>1.public boolean dispatchTouchEvent(MotionEvent ev)<br>当触摸事件发生的时候，首先会被当前的activity进行分发，即当前activity的dispatchTouchEvent方法会被执行。<br>这个时候,该方法有三种返回的情况：</p><pre><code>return false： 表明事件不会被进行分发。事件会以冒泡的方式被传递给上层的view或activity的onTouchEvent方法进行消费掉。return true：表明该时间已经被处理。事件会被当前view或activity的dispatchTouchEvent给消费掉。不会再进行传递，事件到此结束。return super.dispatchTouchEvent(ev)：表明该事件将会被分发。此时当前View的onIntercepterTouchEvent方法会捕获该事件，判断需不需要进行事件的拦截。</code></pre></li><li><p>2.public boolean onInterceptTouchEvent(MotionEvent ev)<br>该方法用户拦截被传递过来的事件，用于判断被传递过来的事件是否需要被当前的view进行处理。<br>   return false : 不对事件进行拦截，放行该事件。事件会被传递到当前view的子控件中，由子控件中的dispatchTouchEvent方法进行分发处理。<br>   return true : 拦截该事件，将该事件交给当前view的onTouchEvent方法进行处理。<br>   return super.inInterceptTouchEvent(ev)：默认拦截方式，和return true一样。该事件会被拦截，将该事件交给当前view的onTouchEvent方法进行处理。（这里需要有一点说明，当有两个view。A view中有一个B view.点击A.A中如果onInterceptTouchEvent()返回super.interceptTouchEvent(ev),则事件将会被A进行拦截，交给A的onTouchEvent()进行处理，如果点击的是B，A中如果onInterceptTouchEvent()返回super.interceptTouchEvent(ev)，则事件将不会被拦截，会被分发到子控件中）</p></li><li><p>3.public boolean onTouchEvent(MotionEvent event)<br>当前的view把事件进行了拦截，则事件则会被传递到该方法中<br>   return false：表明没有消费该事件，事件将会以冒泡的方式一直被传递到上层的view或Activity中的onTouchEvent事件处理。如果最上层的view或Activity中的onTouchEvent还是返回false。则该事件将消失。接下来来的一系列事件都将会直接被上层的onTouchEvent方法捕获<br>   return true: 表明消费了该事件，事件到此结束。<br>   return super.onTouchEvent(event)：默认情况，和return false一样。</p></li></ul><h1 id="验证"><a href="#验证" class="headerlink" title="验证:"></a>验证:</h1><p>MainActivity FatherView ChildView中几个方法都返回super.<em>**</em>TouchEvent(ev)<br>     分析:</p><pre><code>当点击屏幕。MainActivity 中的dispatchTouchEvent方法先执行，打印MainActivity-dispatchTouchEvent--&gt;ACTION_DOWN因为返回的是super.dispatchTouchEvent(ev),所以事件ev将会被分发，但是MainActivity中没有onInterceptTouchEvent()方法，所以事件被传递到FatherView中的dispatchTouchEvent方法.打印FatherView-dispatchTouchEvent--&gt;ACTION_DOWN在FatherView中dispatchTouchEvent返回的是super.dispatchTouchEvent(ev),所有事件会被分发。FatherView中的onInterceptTouchEven()中的方法被执行。打印FatherView-onInterceptTouchEven--&gt;ACTION_DOWNFatherView中的onInterceptTouchEven()返回的是super.onInterceptTouchEvent(ev)。在这里，（1）如果点击的是屏幕中的ChildView。事件将不会被拦截，会被传递到ChildView中的dispatchTouchEvent方法中。（2）如果点击的值FatherView则事件将会被拦截。FatherView中的onTouchEvent()方法将被执行。以（1）为例，将打印ChildView-dispatchTouchEvent--&gt;ACTION_DOWN。ChildView中dispatchTouchEvent返回的是super.dispatchTouchEvent(ev),所有事件会被分发。打印ChildView-onInterceptTouchEvent--&gt;ACTION_DOWN。此时ChildView中onInterceptTouchEvent返回的是super.onInterceptTouchEvent(ev),，而且已经没有子控件了，所以事件将被拦截。打印ChildView-onTouchEvent--&gt;ACTION_DOWN。在childView中onTouchEvent()返回额是super.onTouchEvent(ev)。事件将不会被消耗，将以冒泡的方式传递到上层空间中的onTouchEvent(),此处上层空间中的onTouchEvent返回的都是super.onTouchEvent(ev)。所以讲一次打印 Father-onTouchEvent--&gt;ACTION_DOWN。 MainActivty-onTouchEvent--&gt;ACTION_DOWN。之后的事件动作，将不再被MainActivity分发到子view，直接被MainActivty中的onTouchEvent处理消耗。打印MainActivity-dispatchTouchEvent--&gt;ACTION_UP,MainActivty-onTouchEvent--&gt;ACTION_UP        MainActivity-dispatchTouchEvent--&gt;ACTION_DOWN        FatherView-dispatchTouchEvent--&gt;ACTION_DOWN        FatherView-onInterceptTouchEven--&gt;ACTION_DOWN        ChildView-dispatchTouchEvent--&gt;ACTION_DOWN        ChildView-onInterceptTouchEvent--&gt;ACTION_DOWN。        ChildView-onTouchEvent--&gt;ACTION_DOWN        Father-onTouchEvent--&gt;ACTION_DOWN。         MainActivty-onTouchEvent--&gt;ACTION_DOWN        MainActivity-dispatchTouchEvent--&gt;ACTION_UP,        MainActivty-onTouchEvent--&gt;ACTION_UP</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;一-概述&quot;&gt;&lt;a href=&quot;#一-概述&quot; class=&quot;headerlink&quot; title=&quot;一. 概述&quot;&gt;&lt;/a&gt;一. 概述&lt;/h1&gt;&lt;p&gt;1.只有view，ViewGroup，Activity 具有事件分发和消费的功能。&lt;br&gt;2.Activity因为上最先
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Android应用安装和卸载时的广播</title>
@@ -410,29 +431,6 @@
       
       
         &lt;h1 id=&quot;Java销毁对象&quot;&gt;&lt;a href=&quot;#Java销毁对象&quot; class=&quot;headerlink&quot; title=&quot;Java销毁对象&quot;&gt;&lt;/a&gt;Java销毁对象&lt;/h1&gt;&lt;h2 id=&quot;Java虚拟机如何判断一个对象是否是垃圾？&quot;&gt;&lt;a href=&quot;#Java虚拟机如
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>数组和链表区别</title>
-    <link href="https://ruanyandong.github.io/2018/04/27/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E5%8C%BA%E5%88%AB/"/>
-    <id>https://ruanyandong.github.io/2018/04/27/数组和链表区别/</id>
-    <published>2018-04-27T10:08:42.000Z</published>
-    <updated>2018-04-27T10:09:21.356Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="数组和链表区别"><a href="#数组和链表区别" class="headerlink" title="数组和链表区别"></a>数组和链表区别</h1><p>数组静态分配内存，链表动态分配内存；</p><p>数组在内存中连续，链表不连续；</p><p>数组元素在栈区，链表元素在堆区；</p><p>数组利用下标定位，时间复杂度为O(1)，链表定位元素时间复杂度O(n)；</p><p>数组插入或删除元素的时间复杂度O(n)，链表的时间复杂度O(1)。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;数组和链表区别&quot;&gt;&lt;a href=&quot;#数组和链表区别&quot; class=&quot;headerlink&quot; title=&quot;数组和链表区别&quot;&gt;&lt;/a&gt;数组和链表区别&lt;/h1&gt;&lt;p&gt;数组静态分配内存，链表动态分配内存；&lt;/p&gt;
-&lt;p&gt;数组在内存中连续，链表不连续；&lt;/p&gt;
-&lt;p&gt;数
       
     
     </summary>
