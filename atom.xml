@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2018-10-28T10:40:11.496Z</updated>
+  <updated>2018-11-15T13:08:31.039Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android绘图基础</title>
+    <link href="https://ruanyandong.github.io/2018/11/15/Android%E7%BB%98%E5%9B%BE%E5%9F%BA%E7%A1%80/"/>
+    <id>https://ruanyandong.github.io/2018/11/15/Android绘图基础/</id>
+    <published>2018-11-15T12:51:18.000Z</published>
+    <updated>2018-11-15T13:08:31.039Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="自定义控件之绘图篇：区域（Region）"><a href="#自定义控件之绘图篇：区域（Region）" class="headerlink" title="自定义控件之绘图篇：区域（Region）"></a><a href="https://blog.csdn.net/lu1024188315/article/details/77197968" target="_blank" rel="noopener">自定义控件之绘图篇：区域（Region）</a></h1><h1 id="自定义控件之绘图篇（三）：区域（Range）"><a href="#自定义控件之绘图篇（三）：区域（Range）" class="headerlink" title="自定义控件之绘图篇（三）：区域（Range）"></a><a href="https://blog.csdn.net/harvic880925/article/details/39056701" target="_blank" rel="noopener">自定义控件之绘图篇（三）：区域（Range）</a></h1><h1 id="android-Graphics：区域（Region）"><a href="#android-Graphics：区域（Region）" class="headerlink" title="android Graphics：区域（Region）"></a><a href="https://blog.csdn.net/wurensen/article/details/46437471" target="_blank" rel="noopener">android Graphics：区域（Region）</a></h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;自定义控件之绘图篇：区域（Region）&quot;&gt;&lt;a href=&quot;#自定义控件之绘图篇：区域（Region）&quot; class=&quot;headerlink&quot; title=&quot;自定义控件之绘图篇：区域（Region）&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://blog.csdn
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Android事件分发</title>
@@ -410,27 +431,6 @@
       
       
         &lt;h1 id=&quot;Activity的生命周期之Pause和Resume&quot;&gt;&lt;a href=&quot;#Activity的生命周期之Pause和Resume&quot; class=&quot;headerlink&quot; title=&quot;Activity的生命周期之Pause和Resume&quot;&gt;&lt;/a&gt;Activity
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Java销毁对象</title>
-    <link href="https://ruanyandong.github.io/2018/05/05/Java%E9%94%80%E6%AF%81%E5%AF%B9%E8%B1%A1/"/>
-    <id>https://ruanyandong.github.io/2018/05/05/Java销毁对象/</id>
-    <published>2018-05-05T05:42:37.000Z</published>
-    <updated>2018-05-05T06:05:16.137Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Java销毁对象"><a href="#Java销毁对象" class="headerlink" title="Java销毁对象"></a>Java销毁对象</h1><h2 id="Java虚拟机如何判断一个对象是否是垃圾？"><a href="#Java虚拟机如何判断一个对象是否是垃圾？" class="headerlink" title="Java虚拟机如何判断一个对象是否是垃圾？"></a>Java虚拟机如何判断一个对象是否是垃圾？</h2><p>两种情况：</p><h3 id="1-对象被赋值为null"><a href="#1-对象被赋值为null" class="headerlink" title="1.对象被赋值为null"></a>1.对象被赋值为null</h3><ul><li>如用户先建立了一个对象str1。对象用完了之后，再利用赋值语句，将NULL值赋值给这个对象str1，即使用 str1=NULL的方式将NULL值赋值给这个对象。此时这个对象与内存中对象的存储地址之间就失去了联系。此时内存中的对象就好像成为了一个无主的对 象，就会被垃圾回收器销毁。不过这也有例外。如现在同一个对象有两个名字，分别为str1与str2。此时若只是将NULL值赋值给str1，那么内存的 这个对象仍然有一个主人，即str2。此时这个对象还暂时不会被垃圾回收器回收。除非在代码中讲这个对象所关联的所有对象名字都赋值为NULL。此时这个 对象才变为无主的对象，才会被垃圾回收器回收。<h3 id="2-对象其超出了作用范围"><a href="#2-对象其超出了作用范围" class="headerlink" title="2.对象其超出了作用范围"></a>2.对象其超出了作用范围</h3></li><li>对象其超出了作用范围，这个这个对象就被认为是垃圾对象，被被垃圾回收器回收并释放内存。其实对象跟变量一样，其也有作用域。当超过这个作用域 的话，跟变量一样，这个对象也就无效了，其他地方不能够再引用这个对象。此时这个对象就是名存实亡了。为此垃圾回收器也把这种超过作用范围的对象当作垃圾 对象来处理。所以说，如果程序员要让对象中的某些成员变量或者成员方法一直有效的话，就需要采用static关键字，让其在变量销毁时仍然有效，或则仍然 可以调用这些成员变量与成员方法。<h2 id="Java回收垃圾的方式"><a href="#Java回收垃圾的方式" class="headerlink" title="Java回收垃圾的方式"></a>Java回收垃圾的方式</h2><h3 id="1-垃圾回收器"><a href="#1-垃圾回收器" class="headerlink" title="1.垃圾回收器"></a>1.垃圾回收器</h3></li><li>垃圾回收器是Java平台中用的最频繁的一种对象销毁方法。垃圾回收器会全程侦测Java应用程序的运行情况。当反先有些对象成为垃圾时，垃圾回收 器就会销毁这些对象，并释放这些对象所占用的内存空间。<h3 id="2-finalize-方法"><a href="#2-finalize-方法" class="headerlink" title="2.finalize 方法"></a>2.finalize 方法</h3></li><li>虽然说垃圾回收器已经是一个比较完善的对象销毁机制，但是其并不能够解决Java语言中所有对象的销毁问题。如Java语言平台中，创建对象主要有 两种方式，分别为利用NEW关键字来创建(这是对象创建的主要方式)与不是利用NEW关键字来创建。如果Java语言中某些对象不是利用new关键字为对 象在内存中分配一块存储区域，那么这种类型的对象就不能够被垃圾回收站回收。即使在代码中将NULL值赋值给这个对象，仍然不能够被垃圾回收器回收。虽然 这种对象比较少，但是毕竟存在。为了解决这类对象的回收与内存释放问题，在Java语言中提供了一个finalize的方法。通过这个方法可以显示的让系 统回收这个对象。这是一个Object类的方法。通常情况下，这个方法是被声明为protected。程序开发人员在必要的时候，可以在自定的类中定义这 个方法。假设现在程序开发人员定义了这个方法，那么在对象销毁时，垃圾回收器会先采用这个方法来销毁对象。并且在下一次垃圾回收动作发生时，最终释放对象 的内存。<br>可见，采用了finalize 方法，虽然可以让这个对象被垃圾回收器回收，但是其原理是不同的。垃圾回收器是先调用这个方法，然后在下次运行这个垃圾回收作业时再释放其占用的内存。另 外需要注意的是，这个方法并不一定会保证发生。也就是说，相对来讲，其安全性并没有垃圾回收器那么的高。故在实际创建对象时，最好还是采用new关键字来 创建比较安全，也更加的方便。因为在利用New关键字来创建对象时，在代码中不需要加入另外额外的代码。<h3 id="3-System-gc"><a href="#3-System-gc" class="headerlink" title="3.System.gc()"></a>3.System.gc()</h3></li><li>垃圾回收器其实自动启动的。也就是说，垃圾回收机制起会自动监测垃圾对象，并在适当的时候启动垃圾回收器来销毁对象，释放内存。但是这个垃圾回收器 也会有不合作的时候。也就是说，这个垃圾回收器不受程序代码的控制，其具体执行的时间也会不确定，从而导致上面的finalize方法无法执行，某些对象 无法及时销毁。为此有时候需要利用代码来强制启动垃圾回收器，来销毁对象。<br>采用这个方法，给程序开发人员多了一种主动权，而不需要被动的等着垃圾回收器的启用。有时候，在代码种类利用这个方法不定 期或者定期的强制启动垃圾回收器，对及时销毁垃圾对象能够起到一个辅助与保障作用。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Java销毁对象&quot;&gt;&lt;a href=&quot;#Java销毁对象&quot; class=&quot;headerlink&quot; title=&quot;Java销毁对象&quot;&gt;&lt;/a&gt;Java销毁对象&lt;/h1&gt;&lt;h2 id=&quot;Java虚拟机如何判断一个对象是否是垃圾？&quot;&gt;&lt;a href=&quot;#Java虚拟机如
       
     
     </summary>
