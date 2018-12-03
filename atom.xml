@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2018-11-15T13:08:31.039Z</updated>
+  <updated>2018-12-03T06:45:14.719Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android依赖管理与私服搭建</title>
+    <link href="https://ruanyandong.github.io/2018/12/03/Android%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E4%B8%8E%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA/"/>
+    <id>https://ruanyandong.github.io/2018/12/03/Android依赖管理与私服搭建/</id>
+    <published>2018-12-02T17:37:17.000Z</published>
+    <updated>2018-12-03T06:45:14.719Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Android引入依赖的多种方式"><a href="#Android引入依赖的多种方式" class="headerlink" title="Android引入依赖的多种方式"></a>Android引入依赖的多种方式</h1><h2 id="一、第三方jar包"><a href="#一、第三方jar包" class="headerlink" title="一、第三方jar包"></a>一、第三方jar包</h2><p>   步骤：将jar包放入libs目录下面，然后add as library</p><h2 id="二、依赖本地模块"><a href="#二、依赖本地模块" class="headerlink" title="二、依赖本地模块"></a>二、依赖本地模块</h2><p>   步骤：新建本地module或者library，然后用本地模块进行依赖，例如：implementation project(‘:mylibrary’)</p><h2 id="三、aar方式依赖本地模块"><a href="#三、aar方式依赖本地模块" class="headerlink" title="三、aar方式依赖本地模块"></a>三、aar方式依赖本地模块</h2><p>   步骤：新建本地module或者library，然后build或者rebuild整个project，<br>   然后在新建的module或者library的build目录下的output目录下的aar目录，将aar文件放入需要依赖的libs目录下面，<br>   然后在gradle中加入一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">repositories&#123;</span><br><span class="line">        flatDir&#123;</span><br><span class="line">            dirs &apos;libs&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">implementation(name:&apos;lib2&apos;,ext:&apos;aar&apos;)</span><br><span class="line">name是aar文件的名字，ext是后缀名</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Android引入依赖的多种方式&quot;&gt;&lt;a href=&quot;#Android引入依赖的多种方式&quot; class=&quot;headerlink&quot; title=&quot;Android引入依赖的多种方式&quot;&gt;&lt;/a&gt;Android引入依赖的多种方式&lt;/h1&gt;&lt;h2 id=&quot;一、第三方jar包
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Android绘图基础</title>
@@ -410,27 +431,6 @@
       
       
         &lt;h1 id=&quot;Android获取屏幕宽度的4种方法&quot;&gt;&lt;a href=&quot;#Android获取屏幕宽度的4种方法&quot; class=&quot;headerlink&quot; title=&quot;Android获取屏幕宽度的4种方法&quot;&gt;&lt;/a&gt;Android获取屏幕宽度的4种方法&lt;/h1&gt;&lt;h2 id=&quot;方
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Activity的生命周期之Pause和Resume</title>
-    <link href="https://ruanyandong.github.io/2018/05/18/Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B9%8BPause%E5%92%8CResume/"/>
-    <id>https://ruanyandong.github.io/2018/05/18/Activity的生命周期之Pause和Resume/</id>
-    <published>2018-05-18T12:28:49.000Z</published>
-    <updated>2018-05-19T01:43:06.652Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Activity的生命周期之Pause和Resume"><a href="#Activity的生命周期之Pause和Resume" class="headerlink" title="Activity的生命周期之Pause和Resume"></a>Activity的生命周期之Pause和Resume</h1><ul><li>在一个app的运行期间，前台的activity有时可能会被其他的视图组件打断，然后进入pause状态。 </li><li>比如打开一个半透膜的activity （比方一个dialog风格的activity），前一个activity就会进入pause。</li><li>其实这个时候前一个activity是部分可见的，只是被后来的视图组建挡住了而 失去焦点，这种情况下，失去焦点的activity就处于pause状态。</li><li>但是，当一个activity被打断，并且完全不可见时（即使没被挡住也看不到），这时activity就是处于stops状态。</li></ul><hr><h2 id="注-当activity收到onPause-命令的时候-暗示着这个activity会暂停一会儿，用户可能会再次回到这个activity。但是实际情况中，-用户离开一个应用的第一个先兆也是暂停某个activity，很可能是真的要离开了"><a href="#注-当activity收到onPause-命令的时候-暗示着这个activity会暂停一会儿，用户可能会再次回到这个activity。但是实际情况中，-用户离开一个应用的第一个先兆也是暂停某个activity，很可能是真的要离开了" class="headerlink" title="注:当activity收到onPause()命令的时候, 暗示着这个activity会暂停一会儿，用户可能会再次回到这个activity。但是实际情况中， 用户离开一个应用的第一个先兆也是暂停某个activity，很可能是真的要离开了."></a><strong>注:当activity收到onPause()命令的时候, 暗示着这个activity会暂停一会儿，用户可能会再次回到这个activity。但是实际情况中， 用户离开一个应用的第一个先兆也是暂停某个activity，很可能是真的要离开了.</strong></h2><h2 id=""><a href="#" class="headerlink" title=" "></a> <img src="http://www.jcodecraeer.com/uploads/20130715/75031373901156.png" alt=""></h2><h2 id="图-1-当一个半透明的activity挡住了你的activity，系统将会调用onPause-方法，同时这个activity在pause-阶段（1）等待。如果用户回到activity的时候还是pause状态，系统将会调用onResume-2"><a href="#图-1-当一个半透明的activity挡住了你的activity，系统将会调用onPause-方法，同时这个activity在pause-阶段（1）等待。如果用户回到activity的时候还是pause状态，系统将会调用onResume-2" class="headerlink" title="图 1.当一个半透明的activity挡住了你的activity，系统将会调用onPause()方法，同时这个activity在pause 阶段（1）等待。如果用户回到activity的时候还是pause状态，系统将会调用onResume()(2)."></a><strong>图 1.当一个半透明的activity挡住了你的activity，系统将会调用onPause()方法，同时这个activity在pause 阶段（1）等待。如果用户回到activity的时候还是pause状态，系统将会调用onResume()(2).</strong></h2><h2 id="暂停（pause）你的Activity"><a href="#暂停（pause）你的Activity" class="headerlink" title="暂停（pause）你的Activity"></a>暂停（pause）你的Activity</h2><ul><li>当系统调用activity的onPause()时, 虽然从技术角度来讲你的activity是可见的，但是更通常这也预示着用户会离开这个activity，然后你的activity会进入stop状态。 </li><li><p>基于这种实际情况，通常你应该在onPause()方法里面做如下事情（应该这样做，但不强制，你可以什么也不做-译者注）：<br><strong>停止一切动画效果，或者其他消耗cpu的行为</strong><br><strong>在离开之前提交未被保存改动，你应该只保存那些用户认为应该保存的数据，比如在邮箱应用中，用户正在向文本输入框中写入文字，那么这种改动 被保存下来才显得合理</strong><br><strong>释放系统资源，比如广播接受者，传感处理器（gps等），或者其他影响电池消耗的东西，因为在pause状态下用户并不需要他们</strong><br><strong>比如你的应用在使用Camera，那么onPause()方法是你释放它的好地方：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onPause() &#123;</span><br><span class="line">    super.onPause();  // Always call the superclass method first</span><br><span class="line">    // Release the Camera because we don&apos;t need it when paused</span><br><span class="line">    // and other activities might need to use it.</span><br><span class="line">    if (mCamera != null) &#123;</span><br><span class="line">        mCamera.release()</span><br><span class="line">        mCamera = null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>一般来说，你不要在onPause()中保存用户的改动（比如用户正在填写的私人信息的表格），只有当你确信用户希望自己修改的东西被保存的时候 ，比如刚刚提到的用户在写一封邮件的草稿。另外，在onPause中要避免发生cpu敏感的行为，比如写入数据库，这会影响切换到下一个activity的显示效果。</p></li><li><p>总之，在onPause中的操作都应该是非常简单的，低性能消耗的，确保在onStop()被调用时，用户向其他界面的切换是迅速流畅的。</p></li></ul><h2 id="注-当activity处于pause状态的时候，activity的实例继续常驻在内存中，当onresume发生的时候被重新调用。-你不需要重新初始化在onResume之前的任何阶段创建的控件"><a href="#注-当activity处于pause状态的时候，activity的实例继续常驻在内存中，当onresume发生的时候被重新调用。-你不需要重新初始化在onResume之前的任何阶段创建的控件" class="headerlink" title="注:当activity处于pause状态的时候，activity的实例继续常驻在内存中，当onresume发生的时候被重新调用。 你不需要重新初始化在onResume之前的任何阶段创建的控件"></a><strong>注:当activity处于pause状态的时候，activity的实例继续常驻在内存中，当onresume发生的时候被重新调用。 你不需要重新初始化在onResume之前的任何阶段创建的控件</strong></h2><h2 id="Resume-你的-Activity"><a href="#Resume-你的-Activity" class="headerlink" title="Resume 你的 Activity"></a>Resume 你的 Activity</h2><ul><li><p>当用户从pause状态回到activity，系统将会调用onResume()方法。</p></li><li><p>值得注意的是每次activity回到前台显示的时候onResume方法都会被调用，即使在第一次启动activity的时候也是如此。所以，你应该实现onResume() 来初始化你在onPause()中释放了资源的控件，同时主动触发activity在进入resume状态的时候会发生的其他所有初始化（比如在activity获得用户焦点的时候动画效果和控件的初始化）。</p></li><li><p>下面的onResume()方法的具体实现是和前面提到的camera例子中的onPause()方法相对应的。在onPause()中我们释放了camera资源，当activity 重新回来的时候我们应该在onResume()中重新初始化它。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onResume() &#123;</span><br><span class="line">    super.onResume();  // Always call the superclass method first</span><br><span class="line">    // Get the Camera instance as the activity achieves full user focus</span><br><span class="line">    if (mCamera == null) &#123;</span><br><span class="line">        initializeCamera(); // Local method to handle camera init</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Activity的生命周期之Pause和Resume&quot;&gt;&lt;a href=&quot;#Activity的生命周期之Pause和Resume&quot; class=&quot;headerlink&quot; title=&quot;Activity的生命周期之Pause和Resume&quot;&gt;&lt;/a&gt;Activity
       
     
     </summary>
