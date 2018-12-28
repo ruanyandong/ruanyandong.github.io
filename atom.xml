@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2018-12-03T13:18:52.762Z</updated>
+  <updated>2018-12-28T18:02:50.069Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DialogFragment的宽高设置</title>
+    <link href="https://ruanyandong.github.io/2018/12/29/DialogFragment%E7%9A%84%E5%AE%BD%E9%AB%98%E8%AE%BE%E7%BD%AE/"/>
+    <id>https://ruanyandong.github.io/2018/12/29/DialogFragment的宽高设置/</id>
+    <published>2018-12-28T17:56:34.000Z</published>
+    <updated>2018-12-28T18:02:50.069Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onResume() &#123;</span><br><span class="line">    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();</span><br><span class="line">    params.width = LayoutParams.MATCH_PARENT;</span><br><span class="line">    params.height = LayoutParams.MATCH_PARENT;</span><br><span class="line">    getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);</span><br><span class="line"></span><br><span class="line">    super.onResume();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onResume() &#123;</span><br><span class="line">    getDialog().getWindow().setLayout(width, height);</span><br><span class="line">    super.onResume();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;方法一&quot;&gt;&lt;a href=&quot;#方法一&quot; class=&quot;headerlink&quot; title=&quot;方法一&quot;&gt;&lt;/a&gt;方法一&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;s
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Android依赖管理与私服搭建</title>
@@ -410,27 +431,6 @@
       
       
         &lt;h2 id=&quot;什么是内存泄漏？&quot;&gt;&lt;a href=&quot;#什么是内存泄漏？&quot; class=&quot;headerlink&quot; title=&quot;什么是内存泄漏？&quot;&gt;&lt;/a&gt;什么是内存泄漏？&lt;/h2&gt;&lt;p&gt;  如果一个无用对象（不需要再使用的对象）仍然被其他对象持有引用，造成该对象无法被系统回收，
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Android获取屏幕密度的四种方法</title>
-    <link href="https://ruanyandong.github.io/2018/05/23/Android%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AF%86%E5%BA%A6%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E6%B3%95/"/>
-    <id>https://ruanyandong.github.io/2018/05/23/Android获取屏幕密度的四种方法/</id>
-    <published>2018-05-23T15:27:08.000Z</published>
-    <updated>2018-05-23T15:52:37.050Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Android获取屏幕宽度的4种方法"><a href="#Android获取屏幕宽度的4种方法" class="headerlink" title="Android获取屏幕宽度的4种方法"></a>Android获取屏幕宽度的4种方法</h1><h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);</span><br><span class="line">int width = wm.getDefaultDisplay().getWidth();</span><br><span class="line">int height = wm.getDefaultDisplay().getHeight();</span><br></pre></td></tr></table></figure><h2 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WindowManager wm1 = this.getWindowManager();</span><br><span class="line">int width1 = wm1.getDefaultDisplay().getWidth();</span><br><span class="line">int height1 = wm1.getDefaultDisplay().getHeight();</span><br></pre></td></tr></table></figure><h2 id="方法一与方法二获取屏幕宽度的方法类似，只是获取WindowManager-对象时的途径不同。"><a href="#方法一与方法二获取屏幕宽度的方法类似，只是获取WindowManager-对象时的途径不同。" class="headerlink" title="方法一与方法二获取屏幕宽度的方法类似，只是获取WindowManager 对象时的途径不同。"></a>方法一与方法二获取屏幕宽度的方法类似，只是获取WindowManager 对象时的途径不同。</h2><h2 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h2><pre><code>WindowManager manager = this.getWindowManager();DisplayMetrics outMetrics = new DisplayMetrics();manager.getDefaultDisplay().getMetrics(outMetrics);int width = outMetrics.widthPixels;int height = outMetrics.heightPixels;</code></pre><h2 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Resources resources = this.getResources();</span><br><span class="line">DisplayMetrics dm = resources.getDisplayMetrics();</span><br><span class="line">float density = dm.density;</span><br><span class="line">int width = dm.widthPixels;</span><br><span class="line">int height = dm.heightPixels;</span><br></pre></td></tr></table></figure><h2 id="方法三与方法四类似，因-Display-getHeight-，Display-getWidth-方法过时推荐使用方法三与四"><a href="#方法三与方法四类似，因-Display-getHeight-，Display-getWidth-方法过时推荐使用方法三与四" class="headerlink" title="方法三与方法四类似，因 Display.getHeight()，Display.getWidth() 方法过时推荐使用方法三与四"></a>方法三与方法四类似，因 Display.getHeight()，Display.getWidth() 方法过时推荐使用方法三与四</h2><h2 id="在工具类中封装了一个方法方便经常使用："><a href="#在工具类中封装了一个方法方便经常使用：" class="headerlink" title="在工具类中封装了一个方法方便经常使用："></a>在工具类中封装了一个方法方便经常使用：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static int[] getScreenSize(Context context) &#123;  </span><br><span class="line">    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);  </span><br><span class="line">    DisplayMetrics outMetrics = new DisplayMetrics();  </span><br><span class="line">    wm.getDefaultDisplay().getMetrics(outMetrics);  </span><br><span class="line">    return new int[]&#123;outMetrics.widthPixels, outMetrics.heightPixels&#125;;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Android获取屏幕宽度的4种方法&quot;&gt;&lt;a href=&quot;#Android获取屏幕宽度的4种方法&quot; class=&quot;headerlink&quot; title=&quot;Android获取屏幕宽度的4种方法&quot;&gt;&lt;/a&gt;Android获取屏幕宽度的4种方法&lt;/h1&gt;&lt;h2 id=&quot;方
       
     
     </summary>
