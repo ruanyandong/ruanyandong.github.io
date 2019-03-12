@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2018-12-30T13:27:41.308Z</updated>
+  <updated>2019-03-12T05:19:27.176Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CheckBox改变样式</title>
+    <link href="https://ruanyandong.github.io/2019/03/12/CheckBox%E6%94%B9%E5%8F%98%E6%A0%B7%E5%BC%8F/"/>
+    <id>https://ruanyandong.github.io/2019/03/12/CheckBox改变样式/</id>
+    <published>2019-03-12T05:11:01.000Z</published>
+    <updated>2019-03-12T05:19:27.176Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Android-自定义CheckBox样式"><a href="#Android-自定义CheckBox样式" class="headerlink" title="Android 自定义CheckBox样式"></a>Android 自定义CheckBox样式</h1><h2 id="一、修改checkbox选项框样式"><a href="#一、修改checkbox选项框样式" class="headerlink" title="一、修改checkbox选项框样式"></a>一、修改checkbox选项框样式</h2><h3 id="首先我们要找到两张checkbox选项框的图片："><a href="#首先我们要找到两张checkbox选项框的图片：" class="headerlink" title="首先我们要找到两张checkbox选项框的图片："></a>首先我们要找到两张checkbox选项框的图片：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">normal.png</span><br><span class="line"></span><br><span class="line">checked.png</span><br></pre></td></tr></table></figure><h3 id="然后我们设置一个背景选择器checkbox-style-xml："><a href="#然后我们设置一个背景选择器checkbox-style-xml：" class="headerlink" title="然后我们设置一个背景选择器checkbox_style.xml："></a>然后我们设置一个背景选择器checkbox_style.xml：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/checked&quot; android:state_checked=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/normal&quot; android:state_checked=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/normal&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/selector&gt;</span><br></pre></td></tr></table></figure><h3 id="到这里，在往下有两种方案，一种是直接在布局文件的android：button属性中设置："><a href="#到这里，在往下有两种方案，一种是直接在布局文件的android：button属性中设置：" class="headerlink" title="到这里，在往下有两种方案，一种是直接在布局文件的android：button属性中设置："></a>到这里，在往下有两种方案，一种是直接在布局文件的android：button属性中设置：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">            android:id=&quot;@+id/checkbox1&quot;</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:text=&quot;@strings/check_text&quot;</span><br><span class="line">            android:button=&quot;@drawable/checkbox_style&quot;</span><br><span class="line">            android:checked=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure><h3 id="还有一种是在style-xml文件中添加样式MyCheckboxStyle，并在布局文件中的style属性中设置："><a href="#还有一种是在style-xml文件中添加样式MyCheckboxStyle，并在布局文件中的style属性中设置：" class="headerlink" title="还有一种是在style.xml文件中添加样式MyCheckboxStyle，并在布局文件中的style属性中设置："></a>还有一种是在style.xml文件中添加样式MyCheckboxStyle，并在布局文件中的style属性中设置：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name=&quot;MyCheckboxStyle&quot; parent=&quot;@android:style/Widget.CompoundButton.CheckBox&quot;&gt;</span><br><span class="line">    &lt;item name=&quot;android:button&quot;&gt;@drawable/checkbox_style&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;CheckBox</span><br><span class="line">        android:id=&quot;@+id/checkbox1&quot;</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        style=&quot;@style/MyCheckboxStyle&quot; /&gt;</span><br></pre></td></tr></table></figure><h2 id="二、去掉选项框，自定义类Button样式"><a href="#二、去掉选项框，自定义类Button样式" class="headerlink" title="二、去掉选项框，自定义类Button样式"></a>二、去掉选项框，自定义类Button样式</h2><h3 id="同样，我们需要来一个selector-checkbox-style-xml，但是这里的图片就不是选项框的图片了，而是整个checkbox的背景图片"><a href="#同样，我们需要来一个selector-checkbox-style-xml，但是这里的图片就不是选项框的图片了，而是整个checkbox的背景图片" class="headerlink" title="同样，我们需要来一个selector checkbox_style.xml，但是这里的图片就不是选项框的图片了，而是整个checkbox的背景图片"></a>同样，我们需要来一个selector checkbox_style.xml，但是这里的图片就不是选项框的图片了，而是整个checkbox的背景图片</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/checked&quot; android:state_checked=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/normal&quot; android:state_checked=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/normal&quot;/&gt;</span><br></pre></td></tr></table></figure><h3 id="然后，我们可以在布局文件中将android：button属性设置为“-null”来去掉选项框，并且在android：background属性中设置："><a href="#然后，我们可以在布局文件中将android：button属性设置为“-null”来去掉选项框，并且在android：background属性中设置：" class="headerlink" title="然后，我们可以在布局文件中将android：button属性设置为“@null”来去掉选项框，并且在android：background属性中设置："></a>然后，我们可以在布局文件中将android：button属性设置为“@null”来去掉选项框，并且在android：background属性中设置：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;CheckBox</span><br><span class="line">            android:id=&quot;@+id/checkbox1&quot;</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:background=&quot;@drawable/checkbox_style&quot;</span><br><span class="line">            android:button=&quot;@null&quot;</span><br><span class="line">            android:checked=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure><h2 id="文章链接"><a href="#文章链接" class="headerlink" title="文章链接"></a>文章链接</h2><p><a href="https://www.cnblogs.com/lihualuo/p/3665847.html" target="_blank" rel="noopener">Android知识整理（3） 两种自定义样式的Checkbox</a><br><a href="https://www.cnblogs.com/Claire6649/p/5941145.html" target="_blank" rel="noopener">Android 自定义CheckBox样式</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Android-自定义CheckBox样式&quot;&gt;&lt;a href=&quot;#Android-自定义CheckBox样式&quot; class=&quot;headerlink&quot; title=&quot;Android 自定义CheckBox样式&quot;&gt;&lt;/a&gt;Android 自定义CheckBox样式&lt;/
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>JDBC学习</title>
@@ -410,27 +431,6 @@
       
       
         &lt;h2 id=&quot;1、饿汉单例模式（线程安全）&quot;&gt;&lt;a href=&quot;#1、饿汉单例模式（线程安全）&quot; class=&quot;headerlink&quot; title=&quot;1、饿汉单例模式（线程安全）&quot;&gt;&lt;/a&gt;1、饿汉单例模式（线程安全）&lt;/h2&gt;&lt;figure class=&quot;highlight 
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>面向对象的六大原则</title>
-    <link href="https://ruanyandong.github.io/2018/08/04/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99/"/>
-    <id>https://ruanyandong.github.io/2018/08/04/面向对象的六大原则/</id>
-    <published>2018-08-04T02:02:19.000Z</published>
-    <updated>2018-08-04T02:26:54.920Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、单一职责"><a href="#1、单一职责" class="headerlink" title="1、单一职责"></a>1、单一职责</h2><pre><code>就一个类而言，应该仅有一个引起它变化的原因，一个类中，应该是一组相关性很高的函数、数据的封装。</code></pre><h2 id="2、开闭原则"><a href="#2、开闭原则" class="headerlink" title="2、开闭原则"></a>2、开闭原则</h2><pre><code>软件中的对象（类，模块、函数等）应该对于扩展是开放的，对于修改是封闭的。</code></pre><h2 id="3、里氏替换原则"><a href="#3、里氏替换原则" class="headerlink" title="3、里氏替换原则"></a>3、里氏替换原则</h2><pre><code>父类出现的地方，子类就可以出现，并且不会产生错误，但是子类可以出现的地方父类未必可以出现。</code></pre><h2 id="4、依赖倒置原则"><a href="#4、依赖倒置原则" class="headerlink" title="4、依赖倒置原则"></a>4、依赖倒置原则</h2><pre><code>也叫控制反转、依赖注入，模块之间的依赖通过抽象发生，实现类之间不发生直接的依赖关系，依赖关系通过接口或者抽象类产生。</code></pre><h2 id="5、接口隔离原则"><a href="#5、接口隔离原则" class="headerlink" title="5、接口隔离原则"></a>5、接口隔离原则</h2><pre><code>系统揭开耦合，从而容易更改、重构和部署。</code></pre><h2 id="6、迪米特原则"><a href="#6、迪米特原则" class="headerlink" title="6、迪米特原则"></a>6、迪米特原则</h2><pre><code>一个类应该对于自己需要耦合的或者调用的类知道最少，类的内部如何实现与调用者或者依赖着没有关系，调用者只需要知道他需要调用的方法即可，其他一概不管。</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;1、单一职责&quot;&gt;&lt;a href=&quot;#1、单一职责&quot; class=&quot;headerlink&quot; title=&quot;1、单一职责&quot;&gt;&lt;/a&gt;1、单一职责&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;就一个类而言，应该仅有一个引起它变化的原因，一个类中，应该是一组相关性很高的函数、数据的封装
       
     
     </summary>
