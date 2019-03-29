@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2019-03-12T07:05:04.150Z</updated>
+  <updated>2019-03-29T18:58:25.093Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android NDK学习</title>
+    <link href="https://ruanyandong.github.io/2019/03/30/Android-NDK%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://ruanyandong.github.io/2019/03/30/Android-NDK学习/</id>
+    <published>2019-03-29T18:52:50.000Z</published>
+    <updated>2019-03-29T18:58:25.093Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://developer.android.google.cn/ndk/guides/android_mk" target="_blank" rel="noopener">Android NDK官网</a><br><a href="https://www.jianshu.com/p/87ce6f565d37" target="_blank" rel="noopener">Android JNI</a><br><a href="https://blog.csdn.net/young_time/article/details/80346631" target="_blank" rel="noopener">使用 Android Studio 写出第一个 NDK 程序</a><br><a href="https://www.jianshu.com/c/a25bf14495d7" target="_blank" rel="noopener">Android NDK 开发之旅</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://developer.android.google.cn/ndk/guides/android_mk&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Android NDK官网&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>android音视频学习</title>
@@ -410,27 +431,6 @@
       
       
         &lt;h1 id=&quot;HTTP-方法：GET-对比-POST&quot;&gt;&lt;a href=&quot;#HTTP-方法：GET-对比-POST&quot; class=&quot;headerlink&quot; title=&quot;HTTP 方法：GET 对比 POST&quot;&gt;&lt;/a&gt;HTTP 方法：GET 对比 POST&lt;/h1&gt;&lt;h2 i
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Http与Https的区别</title>
-    <link href="https://ruanyandong.github.io/2018/09/12/Http%E4%B8%8EHttps%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>https://ruanyandong.github.io/2018/09/12/Http与Https的区别/</id>
-    <published>2018-09-12T09:30:41.000Z</published>
-    <updated>2018-09-12T10:14:26.519Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Http与Https的区别"><a href="#Http与Https的区别" class="headerlink" title="Http与Https的区别"></a>Http与Https的区别</h1><pre><code>超文本传输协议HTTP协议被用于在Web浏览器和网站服务器之间传递信息，HTTP协议以明文方式发送内容，不提供任何方式的数据加密，如果攻击者截取了Web浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息，因此，HTTP协议不适合传输一些敏感信息，比如：信用卡号、密码等支付信息。</code></pre><p>　　为了解决HTTP协议的这一缺陷，需要使用另一种协议：<br>   安全套接字层超文本传输协议HTTPS，为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL协议，<br>   SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</p><h2 id="一、HTTP和HTTPS的基本概念"><a href="#一、HTTP和HTTPS的基本概念" class="headerlink" title="一、HTTP和HTTPS的基本概念"></a>一、HTTP和HTTPS的基本概念</h2><p>　　HTTP：是互联网上应用最为广泛的一种网络协议，是一个客户端和服务器端请求和应答的标准（TCP），用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少。</p><p>　　HTTPS：是以安全为目标的HTTP通道，简单讲是HTTP的安全版，即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。</p><p>　　HTTPS协议的主要作用可以分为两种：一种是建立一个信息安全通道，来保证数据传输的安全；另一种就是确认网站的真实性。</p><h2 id="二、HTTP与HTTPS有什么区别？"><a href="#二、HTTP与HTTPS有什么区别？" class="headerlink" title="二、HTTP与HTTPS有什么区别？"></a>二、HTTP与HTTPS有什么区别？</h2><p>　　HTTP协议传输的数据都是未加密的，也就是明文的，<br>因此使用HTTP协议传输隐私信息非常不安全，为了保证这些隐私数据能加密传输，<br>于是网景公司设计了SSL（Secure Sockets Layer）协议用于对HTTP协议传输的数据进行加密，从而就诞生了HTTPS。<br>简单来说，HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全。</p><p>　　HTTPS和HTTP的区别主要如下：</p><p>　　1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</p><p>　　2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</p><p>　　3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p><p>　　4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</p><h2 id="三、HTTPS的工作原理"><a href="#三、HTTPS的工作原理" class="headerlink" title="三、HTTPS的工作原理"></a>三、HTTPS的工作原理</h2><p>　　我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取，所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。</p><p>　客户端在使用HTTPS方式与Web服务器通信时有以下几个步骤，如图所示。</p><p>　　（1）客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</p><p>　　（2）Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</p><p>　　（3）客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。</p><p>　　（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</p><p>　　（5）Web服务器利用自己的私钥解密出会话密钥。</p><p>　　（6）Web服务器利用会话密钥加密与客户端之间的通信。</p><h2 id="四、HTTPS的优点"><a href="#四、HTTPS的优点" class="headerlink" title="四、HTTPS的优点"></a>四、HTTPS的优点</h2><p>　　尽管HTTPS并非绝对安全，掌握根证书的机构、掌握加密算法的组织同样可以进行中间人形式的攻击，但HTTPS仍是现行架构下最安全的解决方案，主要有以下几个好处：</p><p>　　（1）使用HTTPS协议可认证用户和服务器，确保数据发送到正确的客户机和服务器；</p><p>　　（2）HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全，可防止数据在传输过程中不被窃取、改变，确保数据的完整性。</p><p>　　（3）HTTPS是现行架构下最安全的解决方案，虽然不是绝对安全，但它大幅增加了中间人攻击的成本。</p><p>　　（4）谷歌曾在2014年8月份调整搜索引擎算法，并称“比起同等HTTP网站，采用HTTPS加密的网站在搜索结果中的排名将会更高”。</p><h2 id="五、HTTPS的缺点"><a href="#五、HTTPS的缺点" class="headerlink" title="五、HTTPS的缺点"></a>五、HTTPS的缺点</h2><p>　　虽然说HTTPS有很大的优势，但其相对来说，还是存在不足之处的：</p><p>　　（1）HTTPS协议握手阶段比较费时，会使页面的加载时间延长近50%，增加10%到20%的耗电；</p><p>　　（2）HTTPS连接缓存不如HTTP高效，会增加数据开销和功耗，甚至已有的安全措施也会因此而受到影响；</p><p>　　（3）SSL证书需要钱，功能越强大的证书费用越高，个人网站、小网站没有必要一般不会用。</p><p>　   （4）SSL证书通常需要绑定IP，不能在同一IP上绑定多个域名，IPv4资源不可能支撑这个消耗。</p><p>　　（5）HTTPS协议的加密范围也比较有限，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用。最关键的，SSL证书的信用链体系并不安全，特别是在某些国家可以控制CA根证书的情况下，中间人攻击一样可行。</p><h2 id="六、http切换到HTTPS"><a href="#六、http切换到HTTPS" class="headerlink" title="六、http切换到HTTPS"></a>六、http切换到HTTPS</h2><p>　　如果需要将网站从http切换到https到底该如何实现呢？</p><pre><code>这里需要将页面中所有的链接，例如js，css，图片等等链接都由http改为https。例如：http://www.baidu.com改为https://www.baidu.com</code></pre><p>　　BTW，这里虽然将http切换为了https，还是建议保留http。<br>所以我们在切换的时候可以做http和https的兼容，<br>具体实现方式是，去掉页面链接中的http头部，这样可以自动匹配http头和https头。<br>例如：将<a href="http://www.baidu.com改为//www.baidu.com。然后当用户从http的入口进入访问页面时，页面就是http，如果用户是从https的入口进入访问页面，页面即使https的。" target="_blank" rel="noopener">http://www.baidu.com改为//www.baidu.com。然后当用户从http的入口进入访问页面时，页面就是http，如果用户是从https的入口进入访问页面，页面即使https的。</a></p><h2 id="七、SSL的作用"><a href="#七、SSL的作用" class="headerlink" title="七、SSL的作用"></a>七、SSL的作用</h2><p>（1）、认证用户和服务器，确保数据发送到正确的客户机和服务器；</p><p>（2）、加密数据以防止数据中途被窃取；</p><p>（3）、维护数据的完整性，确保数据在传输过程中不被改变。</p><p>而SSL证书指的是在SSL通信中验证通信双方身份的数字文件，<br>一般分为服务器证书和客户端证书，我们通常说的SSL证书主要指服务器证书，<br>SSL证书由受信任的数字证书颁发机构CA（如VeriSign，GlobalSign，WoSign等），<br>在验证服务器身份后颁发，具有服务器身份验证和数据传输加密功能，<br>分为扩展验证型(EV)SSL证书、组织验证型(OV)SSL证书、和域名验证型（DV）SSL证书。</p><h2 id="八、SSL证书申请的3个主要步骤"><a href="#八、SSL证书申请的3个主要步骤" class="headerlink" title="八、SSL证书申请的3个主要步骤"></a>八、SSL证书申请的3个主要步骤</h2><p>对于SSL证书的申请，主要有以下3个步骤：</p><h3 id="（1）、制作CSR文件"><a href="#（1）、制作CSR文件" class="headerlink" title="（1）、制作CSR文件"></a>（1）、制作CSR文件</h3><p>所谓CSR就是由申请人制作的Certificate Secure Request证书请求文件，制作过程中，系统会产生2个密钥，一个是公钥就是这个CSR文件；另外一个是私钥，存放在服务器上。</p><p>要制作CSR文件，申请人可以参考WEB SERVER的文档，一般APACHE等，使用OPENSSL命令行来生成KEY+CSR2个文件，Tomcat，JBoss，Resin等使用KEYTOOL来生成JKS和CSR文件，IIS通过向导建立一个挂起的请求和一个CSR文件。</p><h3 id="（2）、CA认证"><a href="#（2）、CA认证" class="headerlink" title="（2）、CA认证"></a>（2）、CA认证</h3><p>将CSR提交给CA，CA一般有2种认证方式：</p><p>①、域名认证：一般通过对管理员邮箱认证的方式，这种方式认证速度快，但是签发的证书中没有企业的名称。</p><p>②、企业文档认证：需要提供企业的营业执照，一般需要3-5个工作日。</p><p>也有需要同时认证以上2种方式的证书，叫EV证书，这种证书可以使IE7以上的浏览器地址栏变成绿色，所以认证也最严格。</p><h3 id="（3）、证书的安装"><a href="#（3）、证书的安装" class="headerlink" title="（3）、证书的安装"></a>（3）、证书的安装</h3><p>在收到CA的证书后，可以将证书部署上服务器，一般APACHE文件直接将KEY+CER复制到文件上，然后修改HTTPD.CONF文件；TOMCAT等，需要将CA签发的证书CER文件导入JKS文件后，复制上服务器，然后修改SERVER.XML；IIS需要处理挂起的请求，将CER文件导入。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Http与Https的区别&quot;&gt;&lt;a href=&quot;#Http与Https的区别&quot; class=&quot;headerlink&quot; title=&quot;Http与Https的区别&quot;&gt;&lt;/a&gt;Http与Https的区别&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;超文本传输协议HTTP协议被用于在W
       
     
     </summary>
