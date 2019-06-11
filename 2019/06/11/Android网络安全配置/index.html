@@ -102,17 +102,17 @@
 
 
 
-  <meta name="description" content="Android字体简介 Android系统默认支持三种字体，分别为：“sans”,“serif”,“monospace”。 android.graphic.typeface字体类： 1234567891011121314151617181920212223本类的常量静态定义，首先为字体类型（typeface）名称        TypefaceDEFAULTTypeface         DEF">
+  <meta name="description" content="请看这篇文章——Android网络安全配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="android字体相关知识">
-<meta property="og:url" content="https://ruanyandong.github.io/2018/10/03/android字体相关知识/index.html">
+<meta property="og:title" content="Android网络安全配置">
+<meta property="og:url" content="https://ruanyandong.github.io/2019/06/11/Android网络安全配置/index.html">
 <meta property="og:site_name" content="灵魂长者的博客">
-<meta property="og:description" content="Android字体简介 Android系统默认支持三种字体，分别为：“sans”,“serif”,“monospace”。 android.graphic.typeface字体类： 1234567891011121314151617181920212223本类的常量静态定义，首先为字体类型（typeface）名称        TypefaceDEFAULTTypeface         DEF">
+<meta property="og:description" content="请看这篇文章——Android网络安全配置">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-03T08:16:58.872Z">
+<meta property="og:updated_time" content="2019-06-11T04:03:51.380Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="android字体相关知识">
-<meta name="twitter:description" content="Android字体简介 Android系统默认支持三种字体，分别为：“sans”,“serif”,“monospace”。 android.graphic.typeface字体类： 1234567891011121314151617181920212223本类的常量静态定义，首先为字体类型（typeface）名称        TypefaceDEFAULTTypeface         DEF">
+<meta name="twitter:title" content="Android网络安全配置">
+<meta name="twitter:description" content="请看这篇文章——Android网络安全配置">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="https://ruanyandong.github.io/2018/10/03/android字体相关知识/"/>
+  <link rel="canonical" href="https://ruanyandong.github.io/2019/06/11/Android网络安全配置/"/>
 
 
 
@@ -131,7 +131,7 @@
   };
 </script>
 
-  <title>android字体相关知识 | 灵魂长者的博客</title>
+  <title>Android网络安全配置 | 灵魂长者的博客</title>
   
 
 
@@ -284,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2018/10/03/android字体相关知识/">
+    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2019/06/11/Android网络安全配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阮严冬">
@@ -301,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">android字体相关知识
+          <h1 class="post-title" itemprop="name headline">Android网络安全配置
               
             
           </h1>
@@ -326,7 +326,7 @@
                 
               
 
-              <time title="创建时间：2018-10-03 15:59:26 / 修改时间：16:16:58" itemprop="dateCreated datePublished" datetime="2018-10-03T15:59:26+08:00">2018-10-03</time>
+              <time title="创建时间：2019-06-11 11:53:49 / 修改时间：12:03:51" itemprop="dateCreated datePublished" datetime="2019-06-11T11:53:49+08:00">2019-06-11</time>
             
 
             
@@ -364,16 +364,7 @@
       
 
       
-        <h1 id="Android字体简介"><a href="#Android字体简介" class="headerlink" title="Android字体简介"></a>Android字体简介</h1><hr>
-<p>Android系统默认支持三种字体，分别为：“sans”,“serif”,“monospace”。</p>
-<p>android.graphic.typeface字体类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">本类的常量静态定义，首先为字体类型（typeface）名称</span><br><span class="line">        TypefaceDEFAULTTypeface </span><br><span class="line">        DEFAULT_BOLDTypeface </span><br><span class="line">		MONOSPACETypefaceSANS_SERIF</span><br><span class="line">		Typeface SERIF</span><br><span class="line">-------------------------------------------</span><br><span class="line">字体风格（style）名称int 	</span><br><span class="line">	BOLDint </span><br><span class="line">	BOLD_ITALICint </span><br><span class="line">	ITALICint NORMAL</span><br><span class="line">---------------------------------------------------</span><br><span class="line">设置TextView的字体可以通过TextView中的setTypeface方法来指定一个Typeface对象，</span><br><span class="line">	因为Android的字体类比较简单，我们列出所有成员方法:</span><br><span class="line">	    </span><br><span class="line">	staticTypeface create(Typeface family, int style)//静态方法，参数一为字体类型这里是Typeface的静态定义，如宋体，参数二风格，如粗体，斜体   </span><br><span class="line">	staticTypeface create(String familyName, int style)//静态方法，参数一为字体名的字符串，参数二为风格同上，这里我们推荐使用上面的方法。    </span><br><span class="line">	staticTypeface createFromAsset(AssetManager mgr, String path)//静态方法，参数一为AssetManager对象，主要用于从APK的assets文件夹中取出字体，参数二为相对于Android工程下 的assets文件夹中的外挂字体文件的路径。    </span><br><span class="line">	staticTypeface createFromFile(File path)//静态方法，从文件系统构造一个字体，这里参数可以是sdcard中的某个字体文件    </span><br><span class="line">	staticTypeface createFromFile(String path) //静态方法，从指定路径中构造字体    </span><br><span class="line">	staticTypeface defaultFromStyle(int style) //静态方法，返回默认的字体风格    </span><br><span class="line">	intgetStyle() //获取当前字体风格    </span><br><span class="line">	finalboolean isBold() //判断当前是否为粗体    </span><br><span class="line">	finalboolean isItalic() //判断当前风格是否为斜体</span><br></pre></td></tr></table></figure>
-<h2 id="Android字体工作原理"><a href="#Android字体工作原理" class="headerlink" title="Android字体工作原理"></a>Android字体工作原理</h2><p>   android字体由android 2D图形引擎skia实现，并在Zygote的Preloading classes中对系统字体进行load。<br>   相关文件有：skTypeface.cpp和skFontHost_android.cpp，其中后者是skia针对android平台字体实现的port。<br>   主要的变量有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct FontInitRec &#123;</span><br><span class="line">       const char*         fFileName;</span><br><span class="line">       const char* const*  fNames;     </span><br><span class="line">// null-terminated list</span><br><span class="line">&#125;;</span><br><span class="line">struct FamilyRec &#123;</span><br><span class="line">       FamilyRec*  fNext;</span><br><span class="line">       SkTypeface* fFaces[5];</span><br><span class="line">&#125;;</span><br><span class="line">uint32_t gFallbackFonts[SK_ARRAY_COUNT(gSystemFonts)+1];</span><br><span class="line">load_system_fonts()@skFontHost_android.cpp load</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>系统中所有的字体并给每种字体分配唯一的ID，并将字体分为两种：FamilyFonts和FallbackFonts，skPaint通过应用程序设置的字体（Typeface）所对应的ID最终实现字符的显示。<br>替换Android默认的汉字字体在android系统中，DroidSans是默认字体，只包含西方字符，<br>应用程序默认情况下都会调用它，而DroidSansFallback包含了东亚字符，<br>当需要显示的字符在DroidSans字体中不存在（如：汉字）时，即没有对应编码的字符时，<br>系统会到DroidSansFallback中去找相应编码的字符，如果找到，则使用DroidSansFallback字体来显示它，<br>如果仍找不到该编码对应的字符，则无法在屏幕上显示该字符。<br>更换默认中文字体的步骤为：<br>   1、将幼圆字体库youyuan.ttf重命名为DroidSansFallback.ttf,覆盖Android源码中frameworks/base/data/fonts目录下的DroidSansFallback.ttf文件<br>   2、重新编译Android系统3、编译SDK。生成的SDK中，android默认的中文字体已更换为幼圆字体。该方法的不足是删除了Android系统原来的中文字体<br>     为android系统添加一种默认字体在android系统中，默认的中文字体只有一种：DroidSansFallback.ttf，<br>     如果想在android应用程序中随意设置想要的中文字体，除了在应用程序中通过assets目录引入字体文件外，还可以通过增加android默认字体的方式来实现。<br>     添加步骤大致如下：<br>     1、在frameworks/base/data/fonts目录下添加字体文件，例如Driod-kaishu.ttf;<br>     2、在skia中增加楷书这一字体，需要修改的文件主要有skFontHost.cpp、skTypeface.cpp、Typeface.java等;<br>     3、在java层添加楷书字体相关API，需要修改的文件主要有typeface.java和textview.java;</p>
-<pre><code>4、编译SDK5、将新生成的sdk导入eclipse，在eclipse中即可通过setTypeface(Typeface.KAISHU)和android:typeface=(“kaishu”)两种方式设置自己添加的字体
-</code></pre><hr>
-<h1 id="以及一些相关链接，可以参考："><a href="#以及一些相关链接，可以参考：" class="headerlink" title="以及一些相关链接，可以参考："></a>以及一些相关链接，可以参考：</h1><p><a href="https://blog.csdn.net/ludandan1234/article/details/53330944" target="_blank" rel="noopener">修改android app 字体格式</a><br><a href="https://blog.csdn.net/shiyangkai/article/details/70257004" target="_blank" rel="noopener">Android TextView 自定义字体设置</a><br><a href="https://blog.csdn.net/sinat_34754865/article/details/53389923" target="_blank" rel="noopener">Android ttf字体的使用</a><br><a href="https://blog.csdn.net/JavaAndroid730/article/details/53122953" target="_blank" rel="noopener">Android中快速实现自定义字体！</a><br><a href="https://blog.csdn.net/wonderful19891024/article/details/6033304" target="_blank" rel="noopener">Android中字体的处理</a><br><a href="https://blog.csdn.net/songjinshi/article/details/46633341" target="_blank" rel="noopener">Android字体Font相关知识</a></p>
+        <p><a href="https://www.jianshu.com/p/dcfb61720413" target="_blank" rel="noopener">请看这篇文章——Android网络安全配置</a></p>
 
       
     </div>
@@ -404,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/03/Android动态改变图片颜色/" rel="next" title="Android动态改变图片颜色">
-                <i class="fa fa-chevron-left"></i> Android动态改变图片颜色
+              <a href="/2019/04/24/java值传递和引用传递/" rel="next" title="java值传递和引用传递">
+                <i class="fa fa-chevron-left"></i> java值传递和引用传递
               </a>
             
           </div>
@@ -413,10 +404,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/04/GC-ROOT/" rel="prev" title="GC ROOT">
-                GC ROOT <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -503,17 +490,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -569,22 +547,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android字体简介"><span class="nav-number">1.</span> <span class="nav-text">Android字体简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android字体工作原理"><span class="nav-number">1.1.</span> <span class="nav-text">Android字体工作原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#以及一些相关链接，可以参考："><span class="nav-number">2.</span> <span class="nav-text">以及一些相关链接，可以参考：</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
