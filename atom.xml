@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2019-06-16T03:09:23.134Z</updated>
+  <updated>2019-06-16T16:26:34.022Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java守护线程和非守护线程</title>
+    <link href="https://ruanyandong.github.io/2019/06/17/Java%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B%E5%92%8C%E9%9D%9E%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B/"/>
+    <id>https://ruanyandong.github.io/2019/06/17/Java守护线程和非守护线程/</id>
+    <published>2019-06-16T16:24:36.000Z</published>
+    <updated>2019-06-16T16:26:34.022Z</updated>
+    
+    <content type="html"><![CDATA[<p>请参考&gt;&gt;<a href="https://blog.csdn.net/lc1010078424/article/details/79613348" target="_blank" rel="noopener">Java守护线程和非守护线程</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;请参考&amp;gt;&amp;gt;&lt;a href=&quot;https://blog.csdn.net/lc1010078424/article/details/79613348&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Java守护线程和非守护线程&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>代码库上传Jcenter</title>
@@ -412,27 +434,6 @@
       
       
         &lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述:&quot;&gt;&lt;/a&gt;问题描述:&lt;/h1&gt;&lt;p&gt;  n个苹果，一天吃一个或者一天吃两个，共有几种吃法？&lt;br&gt;  请用递归的方式写出&lt;br&gt;&lt;figure class=
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>在xml文件中定义drawable数组、id数组等</title>
-    <link href="https://ruanyandong.github.io/2018/09/23/%E5%9C%A8xml%E6%96%87%E4%BB%B6%E4%B8%AD%E5%AE%9A%E4%B9%89drawable%E6%95%B0%E7%BB%84%E3%80%81id%E6%95%B0%E7%BB%84%E7%AD%89/"/>
-    <id>https://ruanyandong.github.io/2018/09/23/在xml文件中定义drawable数组、id数组等/</id>
-    <published>2018-09-23T00:25:04.000Z</published>
-    <updated>2018-09-23T00:27:53.076Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="在xml文件中定义drawable数组、id数组"><a href="#在xml文件中定义drawable数组、id数组" class="headerlink" title="在xml文件中定义drawable数组、id数组"></a>在xml文件中定义drawable数组、id数组</h1><h2 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 要这样定义 --&gt;</span><br><span class="line">    &lt;string-array name=&quot;items_id&quot;&gt;</span><br><span class="line">        &lt;item&gt;@drawable/qwe&lt;/item&gt;</span><br><span class="line">        &lt;item&gt;@drawable/qwe1&lt;/item&gt;</span><br><span class="line">    &lt;/string-array&gt;</span><br></pre></td></tr></table></figure><h2 id="2、获取"><a href="#2、获取" class="headerlink" title="2、获取"></a>2、获取</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 代码中获取,其他资源也是一样的方法                                    </span><br><span class="line">TypedArray ar = context.getResources().obtainTypedArray(</span><br><span class="line">R.array.items_id);                              </span><br><span class="line">int len = ar.length();                                  </span><br><span class="line">int[] resIds = new int[len];                            </span><br><span class="line">for (int i = 0; i &lt; len; i++)&#123;                          </span><br><span class="line">resIds[i] = ar.getResourceId(i, 0);                 </span><br><span class="line">&#125;                                                       </span><br><span class="line">ar.recycle();</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;在xml文件中定义drawable数组、id数组&quot;&gt;&lt;a href=&quot;#在xml文件中定义drawable数组、id数组&quot; class=&quot;headerlink&quot; title=&quot;在xml文件中定义drawable数组、id数组&quot;&gt;&lt;/a&gt;在xml文件中定义drawa
       
     
     </summary>

@@ -102,17 +102,17 @@
 
 
 
-  <meta name="description" content="方法一123456789@Overridepublic void onResume() &amp;#123;    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();    params.width = LayoutParams.MATCH_PARENT;    params.height = LayoutPar">
+  <meta name="description" content="请参考&amp;gt;&amp;gt;Java守护线程和非守护线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DialogFragment的宽高设置">
-<meta property="og:url" content="https://ruanyandong.github.io/2018/12/29/DialogFragment的宽高设置/index.html">
+<meta property="og:title" content="Java守护线程和非守护线程">
+<meta property="og:url" content="https://ruanyandong.github.io/2019/06/17/Java守护线程和非守护线程/index.html">
 <meta property="og:site_name" content="灵魂长者的博客">
-<meta property="og:description" content="方法一123456789@Overridepublic void onResume() &amp;#123;    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();    params.width = LayoutParams.MATCH_PARENT;    params.height = LayoutPar">
+<meta property="og:description" content="请参考&amp;gt;&amp;gt;Java守护线程和非守护线程">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-28T18:02:50.069Z">
+<meta property="og:updated_time" content="2019-06-16T16:26:34.022Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DialogFragment的宽高设置">
-<meta name="twitter:description" content="方法一123456789@Overridepublic void onResume() &amp;#123;    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();    params.width = LayoutParams.MATCH_PARENT;    params.height = LayoutPar">
+<meta name="twitter:title" content="Java守护线程和非守护线程">
+<meta name="twitter:description" content="请参考&amp;gt;&amp;gt;Java守护线程和非守护线程">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="https://ruanyandong.github.io/2018/12/29/DialogFragment的宽高设置/"/>
+  <link rel="canonical" href="https://ruanyandong.github.io/2019/06/17/Java守护线程和非守护线程/"/>
 
 
 
@@ -131,7 +131,7 @@
   };
 </script>
 
-  <title>DialogFragment的宽高设置 | 灵魂长者的博客</title>
+  <title>Java守护线程和非守护线程 | 灵魂长者的博客</title>
   
 
 
@@ -284,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2018/12/29/DialogFragment的宽高设置/">
+    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2019/06/17/Java守护线程和非守护线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阮严冬">
@@ -301,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DialogFragment的宽高设置
+          <h1 class="post-title" itemprop="name headline">Java守护线程和非守护线程
               
             
           </h1>
@@ -326,7 +326,7 @@
                 
               
 
-              <time title="创建时间：2018-12-29 01:56:34 / 修改时间：02:02:50" itemprop="dateCreated datePublished" datetime="2018-12-29T01:56:34+08:00">2018-12-29</time>
+              <time title="创建时间：2019-06-17 00:24:36 / 修改时间：00:26:34" itemprop="dateCreated datePublished" datetime="2019-06-17T00:24:36+08:00">2019-06-17</time>
             
 
             
@@ -364,8 +364,7 @@
       
 
       
-        <h1 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onResume() &#123;</span><br><span class="line">    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();</span><br><span class="line">    params.width = LayoutParams.MATCH_PARENT;</span><br><span class="line">    params.height = LayoutParams.MATCH_PARENT;</span><br><span class="line">    getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);</span><br><span class="line"></span><br><span class="line">    super.onResume();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onResume() &#123;</span><br><span class="line">    getDialog().getWindow().setLayout(width, height);</span><br><span class="line">    super.onResume();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>请参考&gt;&gt;<a href="https://blog.csdn.net/lc1010078424/article/details/79613348" target="_blank" rel="noopener">Java守护线程和非守护线程</a></p>
 
       
     </div>
@@ -396,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/03/Android依赖管理与私服搭建/" rel="next" title="Android依赖管理与私服搭建">
-                <i class="fa fa-chevron-left"></i> Android依赖管理与私服搭建
+              <a href="/2019/06/16/代码库上传Jcenter/" rel="next" title="代码库上传Jcenter">
+                <i class="fa fa-chevron-left"></i> 代码库上传Jcenter
               </a>
             
           </div>
@@ -405,10 +404,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/30/JDBC学习/" rel="prev" title="JDBC学习">
-                JDBC学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -495,17 +490,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -561,22 +547,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#方法一"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法二"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
