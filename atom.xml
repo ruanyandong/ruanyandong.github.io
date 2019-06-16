@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2019-06-11T04:03:51.380Z</updated>
+  <updated>2019-06-16T03:09:23.134Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>代码库上传Jcenter</title>
+    <link href="https://ruanyandong.github.io/2019/06/16/%E4%BB%A3%E7%A0%81%E5%BA%93%E4%B8%8A%E4%BC%A0Jcenter/"/>
+    <id>https://ruanyandong.github.io/2019/06/16/代码库上传Jcenter/</id>
+    <published>2019-06-16T03:03:22.000Z</published>
+    <updated>2019-06-16T03:09:23.134Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/lmj623565791/article/details/51148825" target="_blank" rel="noopener">Android 快速发布开源项目到jcenter</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/lmj623565791/article/details/51148825&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Android 快速发布开源项目到jcenter&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Android网络安全配置</title>
@@ -411,27 +433,6 @@
       
       
         &lt;h1 id=&quot;在xml文件中定义drawable数组、id数组&quot;&gt;&lt;a href=&quot;#在xml文件中定义drawable数组、id数组&quot; class=&quot;headerlink&quot; title=&quot;在xml文件中定义drawable数组、id数组&quot;&gt;&lt;/a&gt;在xml文件中定义drawa
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ubuntu安装网易云全套教程</title>
-    <link href="https://ruanyandong.github.io/2018/09/18/ubuntu%E5%AE%89%E8%A3%85%E7%BD%91%E6%98%93%E4%BA%91%E5%85%A8%E5%A5%97%E6%95%99%E7%A8%8B/"/>
-    <id>https://ruanyandong.github.io/2018/09/18/ubuntu安装网易云全套教程/</id>
-    <published>2018-09-17T22:14:39.000Z</published>
-    <updated>2018-09-17T20:10:17.013Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="ubuntu18-04安装网易云音乐以及实现双击打开网易云音乐教程"><a href="#ubuntu18-04安装网易云音乐以及实现双击打开网易云音乐教程" class="headerlink" title="ubuntu18.04安装网易云音乐以及实现双击打开网易云音乐教程"></a>ubuntu18.04安装网易云音乐以及实现双击打开网易云音乐教程</h1><h2 id="1：先去官网下载最新版本的ubuntu-网易云音乐"><a href="#1：先去官网下载最新版本的ubuntu-网易云音乐" class="headerlink" title="1：先去官网下载最新版本的ubuntu 网易云音乐"></a>1：先去官网下载最新版本的ubuntu <a href="http://music.163.com/#/download" target="_blank" rel="noopener">网易云音乐</a></h2><p>   我这里下载的是netease-cloud-music_1.1.0_amd64_ubuntu.deb</p><h2 id="2：执行命令安装："><a href="#2：执行命令安装：" class="headerlink" title="2：执行命令安装："></a>2：执行命令安装：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i netease-cloud-music_1.1.0_amd64_ubuntu.deb</span><br></pre></td></tr></table></figure><h2 id="3：会出现依赖问题，执行以下命令"><a href="#3：会出现依赖问题，执行以下命令" class="headerlink" title="3：会出现依赖问题，执行以下命令"></a>3：会出现依赖问题，执行以下命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -f install</span><br></pre></td></tr></table></figure><h2 id="4：到这里安装完毕"><a href="#4：到这里安装完毕" class="headerlink" title="4：到这里安装完毕"></a>4：到这里安装完毕</h2><pre><code>但是双击图标无法打开，原因是权限不足，只能在命令行下打开，而且关闭命令行，网易云音乐也关闭</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netease-cloud-music</span><br></pre></td></tr></table></figure><h2 id="5：实现双击图标打开网易云音乐"><a href="#5：实现双击图标打开网易云音乐" class="headerlink" title="5：实现双击图标打开网易云音乐"></a>5：实现双击图标打开网易云音乐</h2><h3 id="1、将当前用户加入-sudoer"><a href="#1、将当前用户加入-sudoer" class="headerlink" title="1、将当前用户加入 sudoer"></a>1、将当前用户加入 sudoer</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo visudo -f /etc/sudoers.d/username</span><br></pre></td></tr></table></figure><h3 id="2、并输入："><a href="#2、并输入：" class="headerlink" title="2、并输入："></a>2、并输入：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username ALL=(ALL:ALL) NOPASSWD:ALL</span><br></pre></td></tr></table></figure><p>如果不习惯使用nano编辑器可以 更换为vim</p><h3 id="3、编辑启动文件："><a href="#3、编辑启动文件：" class="headerlink" title="3、编辑启动文件："></a>3、编辑启动文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/share/applications/netease-cloud-music.desktop</span><br></pre></td></tr></table></figure><h3 id="4、在第11行前加上-sudo"><a href="#4、在第11行前加上-sudo" class="headerlink" title="4、在第11行前加上 sudo"></a>4、在第11行前加上 sudo</h3><pre><code>Exec=sudo netease-cloud-music %U</code></pre><h3 id="5、大功告成！点击图标即可启动！"><a href="#5、大功告成！点击图标即可启动！" class="headerlink" title="5、大功告成！点击图标即可启动！"></a>5、大功告成！点击图标即可启动！</h3><h2 id="系统版本：Ubuntu-18-04-1"><a href="#系统版本：Ubuntu-18-04-1" class="headerlink" title="系统版本：Ubuntu 18.04.1"></a>系统版本：Ubuntu 18.04.1</h2><h2 id="软件版本：netease-cloud-music-1-1-0"><a href="#软件版本：netease-cloud-music-1-1-0" class="headerlink" title="软件版本：netease-cloud-music 1.1.0"></a>软件版本：netease-cloud-music 1.1.0</h2>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;ubuntu18-04安装网易云音乐以及实现双击打开网易云音乐教程&quot;&gt;&lt;a href=&quot;#ubuntu18-04安装网易云音乐以及实现双击打开网易云音乐教程&quot; class=&quot;headerlink&quot; title=&quot;ubuntu18.04安装网易云音乐以及实现双击打开
       
     
     </summary>
