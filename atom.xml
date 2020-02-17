@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>灵魂长者的博客</title>
+  <title>Wing&#39;s Blog</title>
   
-  <subtitle>科技改变世界</subtitle>
+  <subtitle>Technology to Change the World</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ruanyandong.github.io/"/>
-  <updated>2020-02-17T13:21:45.576Z</updated>
+  <updated>2020-02-17T13:33:16.636Z</updated>
   <id>https://ruanyandong.github.io/</id>
   
   <author>
-    <name>阮严冬</name>
+    <name>阮严冬——Wings</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git reset 和 revert</title>
+    <link href="https://ruanyandong.github.io/2020/02/17/git-reset-%E5%92%8C-revert/"/>
+    <id>https://ruanyandong.github.io/2020/02/17/git-reset-和-revert/</id>
+    <published>2020-02-17T13:30:15.000Z</published>
+    <updated>2020-02-17T13:33:16.636Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在利用git实现多人合作开发程序的过程中，有时会出现错误提交的情况，此时希望能撤销提交操作，让程序回到提交前的样子，本文总结了两种方法：reset（重置）、revert（恢复）。</p><p>先简单说一下，在提交到远程库之前我们使用<strong>git reset</strong> 命令完全可以满足我们 撤销操作的需求，如果操作已经提交到远程库，那只好使用 <strong>git revert</strong> 来提交一个新的撤销操作 撤销 需要撤销的那次commit。</p><h1 id="git的工作流"><a href="#git的工作流" class="headerlink" title="git的工作流"></a>git的工作流</h1><ul><li><p><strong>工作区</strong>：即自己当前分支所修改的代码，git add xx 之前的！不包括 git add xx 和 git commit xxx 之后的。</p></li><li><p><strong>暂存区</strong>：已经 git add xxx 进去，且未 git commit xxx 的。</p></li><li><p><strong>本地分支</strong>：已经git commit -m xxx 提交到本地分支的。</p></li></ul><p>在将文件提交至远程端时，文件的提交需要经过<strong>git add</strong>、<strong>git commit</strong>及<strong>git push</strong>三个过程才能提交至git远程仓库。我们平时修改文件在<strong>工作目录</strong>中，提交时先使用git add提交至<strong>暂存区</strong>，再通过git commit提交至<strong>本地仓库</strong>，最后才能使用git push提交至远程仓库。</p><ul><li><strong>在工作区的代码</strong></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- a.txt   <span class="comment"># 丢弃某个文件，或者</span></span><br><span class="line">git checkout -- .       <span class="comment"># 丢弃全部</span></span><br></pre></td></tr></table></figure><p>注意：git checkout – . 丢弃全部，也包括：新增的文件会被删除、删除的文件会恢复回来、修改的文件会回去。这几个前提都说的是，回到暂存区之前的样子。对之前保存在暂存区里的代码不会有任何影响。对commit提交到本地分支的代码就更没影响了。当然，如果你之前压根都没有暂存或commit，那就是回到你上次pull下来的样子了。</p><ul><li><strong>代码git add到缓存区，并未commit提交</strong></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD .  或者</span><br><span class="line">git reset HEAD a.txt</span><br></pre></td></tr></table></figure><p>这个命令仅改变暂存区，并不改变工作区，这意味着在无任何其他操作的情况下，工作区中的实际文件同该命令运行之前无任何变化</p><ul><li><strong>git commit到本地分支、但没有git push到远程</strong></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment"># 得到你需要回退一次提交的commit id</span></span><br><span class="line">git reset --hard &lt;commit_id&gt;  <span class="comment"># 回到其中你想要的某个版</span></span><br><span class="line">或者</span><br><span class="line">git reset --hard HEAD^  <span class="comment"># 回到最新的一次提交</span></span><br><span class="line">或者</span><br><span class="line">git reset HEAD^  <span class="comment"># 此时代码保留，回到 git add 之前</span></span><br></pre></td></tr></table></figure><ul><li><strong>git push把修改提交到远程仓库</strong><br>1）通过git reset是直接删除指定的commit</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment"># 得到你需要回退一次提交的commit id</span></span><br><span class="line">git reset --hard &lt;commit_id&gt;</span><br><span class="line">git push origin HEAD --force <span class="comment"># 强制提交一次，之前错误的提交就从远程仓库删除</span></span><br></pre></td></tr></table></figure><p>2）通过git revert是用一次新的commit来回滚之前的commit</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment"># 得到你需要回退一次提交的commit id</span></span><br><span class="line">git revert &lt;commit_id&gt;  <span class="comment"># 撤销指定的版本，撤销也会作为一次提交进行保存</span></span><br><span class="line">git commit -m <span class="string">"......."</span> </span><br><span class="line">git push</span><br></pre></td></tr></table></figure><p>开发过程中，你肯定会遇到这样的场景：</p><p>场景一：</p><pre><code>糟了，我刚把不想要的代码，commit到本地仓库中了，但是还没有做push操作！</code></pre><p>场景二：</p><pre><code>彻底完了，刚线上更新的代码出现问题了，需要还原这次提交的代码！</code></pre><p>场景三：</p><pre><code>刚才我发现之前的某次提交太愚蠢了，现在想要干掉它！</code></pre><p>撤销</p><p>上述场景一，在未进行git push前的所有操作，都是在“本地仓库”中执行的。我们暂且将“本地仓库”的代码还原操作叫做“撤销”！</p><p>情况一：文件被修改了，但未执行git add操作(working tree内撤销)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout fileName</span><br><span class="line">git checkout .</span><br></pre></td></tr></table></figure><p>情况二：同时对多个文件执行了git add操作，但本次只想提交其中一部分文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git add *</span><br><span class="line">$ git status</span><br><span class="line"><span class="comment"># 取消暂存</span></span><br><span class="line">$ git reset HEAD &lt;filename&gt;</span><br></pre></td></tr></table></figure><p>情况三：文件执行了git add操作，但想撤销对其的修改（index内回滚）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取消暂存</span></span><br><span class="line"> git reset HEAD fileName</span><br><span class="line"> <span class="comment"># 撤销修改</span></span><br><span class="line"> git checkout fileName</span><br></pre></td></tr></table></figure><p>情况四：修改的文件已被git commit，但想再次修改不再产生新的Commit</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改最后一次提交 </span></span><br><span class="line">  $ git add sample.txt</span><br><span class="line">  $ git commit --amend -m<span class="string">"说明"</span></span><br></pre></td></tr></table></figure><h1 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h1><p>git reset中有三个命令（–hard、–soft与–mixed）；主要用于工作区、暂存区、本地仓库三个区域的文件提交撤回</p><ul><li>git reset –hard xxx</li></ul><p>hard （修改版本库，修改暂存区，修改工作区）</p><p>–hard HEAD～1 (或是版本号)意为将版本库回退1个版本，但是不仅仅是将本地版本库的头指针全部重置到指定版本，也会重置暂存区，并且会将工作区代码也回退到这个版本</p><ul><li><p>git reset –soft xxx</p><p>soft （修改版本库，保留暂存区，保留工作区）</p></li></ul><p>–soft HEAD～1 意为将版本库软回退1个版本，所谓软回退表示将本地版本库的头指针全部重置到指定版本，且将这次提交之后的所有变更都移动到暂存区。</p><h1 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h1><ul><li>git revert xxx</li></ul><p>– git revert 也是撤销命令，区别在于reset是指向原地或者向前移动指针，git revert是创建一个commit来覆盖当前的commit，指针向后移动。</p><h1 id="git-revert-和-git-reset的区别"><a href="#git-revert-和-git-reset的区别" class="headerlink" title="git revert 和 git reset的区别"></a>git revert 和 git reset的区别</h1><ul><li>git revert是用一次新的commit来回滚之前的commit，此次提交之前的commit都会被保留；</li><li>git reset是回到某次提交，提交及之前的commit都会被保留，但是此commit id之后的修改都会被删除</li><li>git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit。</li></ul><ul><li>在回滚这一操作上看，效果差不多。但是在日后继续merge以前的老版本时有区别。因为git revert是用一次逆向的commit“中和”之前的提交，因此日后合并老的branch时，导致这部分改变不会再次出现，但是git reset是之间把某些commit在某个branch上删除，因而和老的branch再次merge时，这些被回滚的commit应该还会被引入。</li><li>git reset 是把HEAD向后移动了一下，而git revert是HEAD继续前进，只是新的commit的内容和要revert的内容正好相反，能够抵消要被revert的内容。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;在利用git实现多人合作开发程序的过程中，有时会出现错误提交的情况，此时希望能撤销提交操作，让程序回到提交前的样子，本文总结了两种方法：re
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>git merge 和 rebase</title>
@@ -413,27 +434,6 @@
       
         &lt;p&gt;参考文章&lt;a href=&quot;https://blog.csdn.net/swebin/article/details/78571933&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;java四种引用&lt;/a&gt;&lt;/p&gt;
 
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>GC ROOT</title>
-    <link href="https://ruanyandong.github.io/2018/10/04/GC-ROOT/"/>
-    <id>https://ruanyandong.github.io/2018/10/04/GC-ROOT/</id>
-    <published>2018-10-04T10:00:21.000Z</published>
-    <updated>2018-10-04T10:02:34.743Z</updated>
-    
-    <content type="html"><![CDATA[<p>关于GC ROOT,请参考这篇文章====&gt;<a href="https://blog.csdn.net/u010497228/article/details/44106119" target="_blank" rel="noopener">GC ROOT</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;关于GC ROOT,请参考这篇文章====&amp;gt;&lt;a href=&quot;https://blog.csdn.net/u010497228/article/details/44106119&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GC ROOT&lt;/a&gt;&lt;/
       
     
     </summary>
