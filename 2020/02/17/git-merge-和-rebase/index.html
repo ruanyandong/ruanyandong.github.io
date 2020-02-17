@@ -102,17 +102,25 @@
 
 
 
-  <meta name="description" content="方法一123456789@Overridepublic void onResume() &amp;#123;    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();    params.width = LayoutParams.MATCH_PARENT;    params.height = LayoutPar">
+  <meta name="description" content="rebase假设你现在基于远程分支”origin”，创建一个叫”mywork”的分支。 1$ git checkout -b mywork origin 现在我们在这个分支做一些修改，然后生成两个提交(commit). 12345$ vi file.txt$ git commit$ vi otherfile.txt$ git commit... 但是与此同时，有些人也在”origin”分支上做了一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DialogFragment的宽高设置">
-<meta property="og:url" content="https://ruanyandong.github.io/2018/12/29/DialogFragment的宽高设置/index.html">
+<meta property="og:title" content="git merge 和 rebase">
+<meta property="og:url" content="https://ruanyandong.github.io/2020/02/17/git-merge-和-rebase/index.html">
 <meta property="og:site_name" content="灵魂长者的博客">
-<meta property="og:description" content="方法一123456789@Overridepublic void onResume() &amp;#123;    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();    params.width = LayoutParams.MATCH_PARENT;    params.height = LayoutPar">
+<meta property="og:description" content="rebase假设你现在基于远程分支”origin”，创建一个叫”mywork”的分支。 1$ git checkout -b mywork origin 现在我们在这个分支做一些修改，然后生成两个提交(commit). 12345$ vi file.txt$ git commit$ vi otherfile.txt$ git commit... 但是与此同时，有些人也在”origin”分支上做了一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-28T18:02:50.069Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200217185852996.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200217190033870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200217190249605.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200217190341269.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200217190435390.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200217190631810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200217192653541.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-02-17T13:21:45.576Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DialogFragment的宽高设置">
-<meta name="twitter:description" content="方法一123456789@Overridepublic void onResume() &amp;#123;    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();    params.width = LayoutParams.MATCH_PARENT;    params.height = LayoutPar">
+<meta name="twitter:title" content="git merge 和 rebase">
+<meta name="twitter:description" content="rebase假设你现在基于远程分支”origin”，创建一个叫”mywork”的分支。 1$ git checkout -b mywork origin 现在我们在这个分支做一些修改，然后生成两个提交(commit). 12345$ vi file.txt$ git commit$ vi otherfile.txt$ git commit... 但是与此同时，有些人也在”origin”分支上做了一">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200217185852996.png">
 
 
 
@@ -121,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="https://ruanyandong.github.io/2018/12/29/DialogFragment的宽高设置/"/>
+  <link rel="canonical" href="https://ruanyandong.github.io/2020/02/17/git-merge-和-rebase/"/>
 
 
 
@@ -131,7 +139,7 @@
   };
 </script>
 
-  <title>DialogFragment的宽高设置 | 灵魂长者的博客</title>
+  <title>git merge 和 rebase | 灵魂长者的博客</title>
   
 
 
@@ -284,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2018/12/29/DialogFragment的宽高设置/">
+    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2020/02/17/git-merge-和-rebase/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阮严冬">
@@ -301,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DialogFragment的宽高设置
+          <h1 class="post-title" itemprop="name headline">git merge 和 rebase
               
             
           </h1>
@@ -326,7 +334,7 @@
                 
               
 
-              <time title="创建时间：2018-12-29 01:56:34 / 修改时间：02:02:50" itemprop="dateCreated datePublished" datetime="2018-12-29T01:56:34+08:00">2018-12-29</time>
+              <time title="创建时间：2020-02-17 21:19:20 / 修改时间：21:21:45" itemprop="dateCreated datePublished" datetime="2020-02-17T21:19:20+08:00">2020-02-17</time>
             
 
             
@@ -364,8 +372,35 @@
       
 
       
-        <h1 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onResume() &#123;</span><br><span class="line">    ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();</span><br><span class="line">    params.width = LayoutParams.MATCH_PARENT;</span><br><span class="line">    params.height = LayoutParams.MATCH_PARENT;</span><br><span class="line">    getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);</span><br><span class="line"></span><br><span class="line">    super.onResume();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onResume() &#123;</span><br><span class="line">    getDialog().getWindow().setLayout(width, height);</span><br><span class="line">    super.onResume();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h1><p>假设你现在基于远程分支”origin”，创建一个叫”mywork”的分支。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b mywork origin</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200217185852996.png" alt="在这里插入图片描述"><br>现在我们在这个分支做一些修改，然后生成两个提交(commit).</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ vi file.txt</span><br><span class="line">$ git commit</span><br><span class="line">$ vi otherfile.txt</span><br><span class="line">$ git commit</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>但是与此同时，有些人也在”origin”分支上做了一些修改并且做了提交了. 这就意味着”origin”和”mywork”这两个分支各自”前进”了，它们之间”分叉”了。<br><img src="https://img-blog.csdnimg.cn/20200217190033870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>在这里，你可以用”pull”命令把”origin”分支上的修改拉下来并且和你的修改合并； 结果看起来就像一个新的”合并的提交”(merge commit):<br><img src="https://img-blog.csdnimg.cn/20200217190249605.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>但是，如果你想让”mywork”分支历史看起来像没有经过任何合并一样，你也许可以用 git rebase:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout mywork</span><br><span class="line">$ git rebase origin</span><br></pre></td></tr></table></figure>
+<p>这些命令会把你的”mywork”分支里的每个提交(commit)取消掉，并且把它们临时 保存为补丁(patch)(这些补丁放到”.git/rebase”目录中),然后把”mywork”分支更新 到最新的”origin”分支，最后把保存的这些补丁应用到”mywork”分支上。<br><img src="https://img-blog.csdnimg.cn/20200217190341269.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>当’mywork’分支更新之后，它会指向这些新创建的提交(commit),而那些老的提交会被丢弃。 如果运行垃圾收集命令(pruning garbage collection), 这些被丢弃的提交就会删除. （请查看 git gc)<br><img src="https://img-blog.csdnimg.cn/20200217190435390.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>现在我们可以看一下用合并(merge)和用rebase所产生的历史的区别：<br><img src="https://img-blog.csdnimg.cn/20200217190631810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> </p>
+<ul>
+<li>1-2-3 是现在的分支状态</li>
+<li>这个时候从原来的master ,checkout出来一个prod分支</li>
+<li>然后master提交了4.5，prod提交了6.7</li>
+<li>这个时候master分支状态就是1-2-3-4-5，prod状态变成1-2-3-6-7</li>
+<li>如果在prod上用rebase master ,prod分支状态就成了1-2-3-4-5-6-7</li>
+<li>如果是merge 1-2-3-6-7-8  …….. |4-5|</li>
+<li>会出来一个8，这个8的提交就是把4-5合进来的提交</li>
+</ul>
+<p>在rebase的过程中，也许会出现冲突(conflict). 在这种情况，Git会停止rebase并会让你去解决 冲突；在解决完冲突后，用”git-add”命令去更新这些内容的索引(index), 然后，你无需执行 git-commit,只要执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --<span class="built_in">continue</span></span><br></pre></td></tr></table></figure>
+<p>这样git会继续应用(apply)余下的补丁。</p>
+<p>在任何时候，你可以用–abort参数来终止rebase的行动，并且”mywork” 分支会回到rebase开始前的状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --abort</span><br></pre></td></tr></table></figure>
+<h2 id="git-pull和git-pull-–rebase区别"><a href="#git-pull和git-pull-–rebase区别" class="headerlink" title="git pull和git pull –rebase区别"></a><strong>git pull</strong>和<strong>git pull –rebase</strong>区别</h2><p><strong>git pul</strong>l做了两个操作分别是‘获取’和合并。所以加了rebase就是以rebase的方式进行合并分支，默认为merge。</p>
+<h2 id="git-merge-和-git-merge-–no-ff的区别"><a href="#git-merge-和-git-merge-–no-ff的区别" class="headerlink" title="git merge 和 git merge –no-ff的区别"></a>git merge 和 git merge –no-ff的区别</h2><p>1、尝试merge命令后，发现：merge时并没有产生一个commit。不是说merge时会产生一个merge commit吗？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意:只有在冲突的时候，解决完冲突才会自动产生一个commit。</span><br></pre></td></tr></table></figure>
+<p>如果想在没有冲突的情况下也自动生成一个commit，记录此次合并就可以用：<strong>git merge –no-ff</strong>命令，下面用一张图来表示两者的区别：<br><img src="https://img-blog.csdnimg.cn/20200217192653541.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjgxNTgw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">2、如果不加 –no-ff 则被合并的分支之前的commit都会被抹去，只会保留一个解决冲突后的 merge commit。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://gitbook.liuhui998.com/4_2.html" target="_blank" rel="noopener">merge和rebase</a></p>
 
       
     </div>
@@ -396,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/03/Android依赖管理与私服搭建/" rel="next" title="Android依赖管理与私服搭建">
-                <i class="fa fa-chevron-left"></i> Android依赖管理与私服搭建
+              <a href="/2020/02/16/git-revert踩坑之路/" rel="next" title="git revert踩坑之路">
+                <i class="fa fa-chevron-left"></i> git revert踩坑之路
               </a>
             
           </div>
@@ -405,10 +440,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/30/JDBC学习/" rel="prev" title="JDBC学习">
-                JDBC学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -571,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#方法一"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法二"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rebase"><span class="nav-number">1.</span> <span class="nav-text">rebase</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-pull和git-pull-–rebase区别"><span class="nav-number">1.1.</span> <span class="nav-text">git pull和git pull –rebase区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-merge-和-git-merge-–no-ff的区别"><span class="nav-number">1.2.</span> <span class="nav-text">git merge 和 git merge –no-ff的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.2.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
