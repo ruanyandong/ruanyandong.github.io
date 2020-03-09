@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+
+  
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="概述 CountDownLatch中count down是倒数的意思，在构造CountDownLatch的时候需要传入一个整数n，在这个整数“倒数”到0之前，主线程需要等待，而这个“倒数”过程则是由各个执行线程驱动的，每个线程执行完一个任务“倒数”一次。 总结来说，CountDownLatch的作用就是等待其他的线程都执行完任务，必要时可以对各个任务的执行结果进行汇总，然后主线程才继续往下执行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CountDownLatch详解">
+<meta property="og:url" content="https://ruanyandong.github.io/2020/03/09/CountDownLatch详解/index.html">
+<meta property="og:site_name" content="Wing&#39;s Blog">
+<meta property="og:description" content="概述 CountDownLatch中count down是倒数的意思，在构造CountDownLatch的时候需要传入一个整数n，在这个整数“倒数”到0之前，主线程需要等待，而这个“倒数”过程则是由各个执行线程驱动的，每个线程执行完一个任务“倒数”一次。 总结来说，CountDownLatch的作用就是等待其他的线程都执行完任务，必要时可以对各个任务的执行结果进行汇总，然后主线程才继续往下执行。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-09T15:18:40.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CountDownLatch详解">
+<meta name="twitter:description" content="概述 CountDownLatch中count down是倒数的意思，在构造CountDownLatch的时候需要传入一个整数n，在这个整数“倒数”到0之前，主线程需要等待，而这个“倒数”过程则是由各个执行线程驱动的，每个线程执行完一个任务“倒数”一次。 总结来说，CountDownLatch的作用就是等待其他的线程都执行完任务，必要时可以对各个任务的执行结果进行汇总，然后主线程才继续往下执行。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Wing's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://ruanyandong.github.io/2020/03/09/CountDownLatch详解/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CountDownLatch详解 | Wing's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+  
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/ruanyandong">
+	<img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub">
+	</a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wing's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Technology to Change the World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ruanyandong.github.io/2020/03/09/CountDownLatch详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阮严冬——Wings">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wing's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CountDownLatch详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-09 23:18:14 / 修改时间：23:18:40" itemprop="dateCreated datePublished" datetime="2020-03-09T23:18:14+08:00">2020-03-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
+<li>CountDownLatch中count down是倒数的意思，在构造CountDownLatch的时候需要传入一个整数n，在这个整数“倒数”到0之前，主线程需要等待，而这个“倒数”过程则是由各个执行线程驱动的，每个线程执行完一个任务“倒数”一次。</li>
+<li>总结来说，CountDownLatch的作用就是等待其他的线程都执行完任务，必要时可以对各个任务的执行结果进行汇总，然后主线程才继续往下执行。</li>
+<li>CountDownLatch主要有两个方法：countDown()和await()。countDown()方法用于使计数器减一，其一般是执行任务的线程调用，await()方法则使调用该方法的线程处于等待状态，其一般是主线程调用。</li>
+<li>需要注意的是，countDown()方法并没有规定一个线程只能调用一次，当同一个线程调用多次countDown()方法时，每次都会使计数器减一；另外，await()方法也并没有规定只能有一个线程执行该方法，如果多个线程同时执行await()方法，那么这几个线程都将处于等待状态，并且以共享模式享有同一个锁<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1></li>
+<li>CountDownLatch非常适合于对任务进行拆分，使其并行执行，比如某个任务执行2s，其对数据的请求可以分为五个部分，那么就可以将这个任务拆分为5个子任务，分别交由五个线程执行，执行完成之后再由主线程进行汇总，此时，总的执行时间将决定于执行最慢的任务，平均来看，还是大大减少了总的执行时间。</li>
+<li>另外一种比较合适使用CountDownLatch的地方是使用某些外部链接请求数据的时候。比如图片，我们使用的图片服务只提供了获取单个图片的功能，而每次获取图片的时间不等，一般都需要1.5s~2s。当我们需要批量获取图片的时候，比如列表页需要展示一系列的图片，如果使用单个线程顺序获取，那么等待时间将会极长，此时我们就可以使用CountDownLatch对获取图片的操作进行拆分，并行的获取图片，这样也就缩短了总的获取时间。<h1 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h1></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        CountDownLatch latch = <span class="keyword">new</span> CountDownLatch(<span class="number">5</span>);</span><br><span class="line">        Service service = <span class="keyword">new</span> Service(latch);</span><br><span class="line">        Runnable task = () -&gt; service.exec();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            Thread thread = <span class="keyword">new</span> Thread(task);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"main thread await. "</span>);</span><br><span class="line">        latch.await();</span><br><span class="line">        System.out.println(<span class="string">"main thread finishes await. "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CountDownLatch latch;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Service</span><span class="params">(CountDownLatch latch)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.latch = latch;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" execute task. "</span>);</span><br><span class="line">            sleep(<span class="number">2</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" finished task. "</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            latch.countDown();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">(<span class="keyword">int</span> seconds)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(seconds);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，首先声明了一个CountDownLatch对象，并且由主线程创建了5个线程，分别执行任务，在每个任务中，当前线程会休眠2秒。在启动线程之后，主线程调用了CountDownLatch.await()方法，此时，主线程将在此处等待创建的5个线程执行完任务之后才继续往下执行。如下是执行结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Thread-<span class="number">0</span> execute task. </span><br><span class="line">Thread-<span class="number">1</span> execute task. </span><br><span class="line">Thread-<span class="number">2</span> execute task. </span><br><span class="line">Thread-<span class="number">3</span> execute task. </span><br><span class="line">main thread await. </span><br><span class="line">Thread-<span class="number">4</span> execute task. </span><br><span class="line">Thread-<span class="number">0</span> finished task. </span><br><span class="line">Thread-<span class="number">2</span> finished task. </span><br><span class="line">Thread-<span class="number">1</span> finished task. </span><br><span class="line">Thread-<span class="number">3</span> finished task. </span><br><span class="line">Thread-<span class="number">4</span> finished task. </span><br><span class="line">main thread finishes await.</span><br></pre></td></tr></table></figure>
+<p>从输出结果可以看出，主线程先启动了五个线程，然后主线程进入等待状态，当这五个线程都执行完任务之后主线程才结束了等待。上述代码中需要注意的是，在执行任务的线程中，使用了try…finally结构，该结构可以保证创建的线程发生异常时CountDownLatch.countDown()方法也会执行，也就保证了主线程不会一直处于等待状态。</p>
+<h1 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h1><p>CountDownLatch是基于AbstractQueuedSynchronizer实现的，在AbstractQueuedSynchronizer中维护了一个volatile类型的整数state，volatile可以保证多线程环境下该变量的修改对每个线程都可见，并且由于该属性为整型，因而对该变量的修改也是原子的。创建一个CountDownLatch对象时，所传入的整数n就会赋值给state属性，当countDown()方法调用时，该线程就会尝试对state减一，而调用await()方法时，当前线程就会判断state属性是否为0，如果为0，则继续往下执行，如果不为0，则使当前线程进入等待状态，直到某个线程将state属性置为0，其就会唤醒在await()方法中等待的线程。如下是countDown()方法的源代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">countDown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  sync.releaseShared(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   这里sync也即一个继承了AbstractQueuedSynchronizer的类实例，该类是CountDownLatch的一个内部类，其声明如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Sync</span> <span class="keyword">extends</span> <span class="title">AbstractQueuedSynchronizer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">4982264981922014374L</span>;</span><br><span class="line"></span><br><span class="line">  Sync(<span class="keyword">int</span> count) &#123;</span><br><span class="line">    setState(count);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getState();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">tryAcquireShared</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (getState() == <span class="number">0</span>) ? <span class="number">1</span> : -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">tryReleaseShared</span><span class="params">(<span class="keyword">int</span> releases)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">      <span class="keyword">int</span> c = getState();   <span class="comment">// 获取当前state属性的值</span></span><br><span class="line">      <span class="keyword">if</span> (c == <span class="number">0</span>)   <span class="comment">// 如果state为0，则说明当前计数器已经计数完成，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      <span class="keyword">int</span> nextc = c-<span class="number">1</span>;</span><br><span class="line">      <span class="keyword">if</span> (compareAndSetState(c, nextc)) <span class="comment">// 使用CAS算法对state进行设置</span></span><br><span class="line">        <span class="keyword">return</span> nextc == <span class="number">0</span>;  <span class="comment">// 设置成功后返回当前是否为最后一个设置state的线程</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 这里tryReleaseShared(int)方法即对state属性进行减一操作的代码。可以看到，CAS也即compare and set的缩写，jvm会保证该方法的原子性，其会比较state是否为c，如果是则将其设置为nextc（自减1），如果state不为c，则说明有另外的线程在getState()方法和compareAndSetState()方法调用之间对state进行了设置，当前线程也就没有成功设置state属性的值，其会进入下一次循环中，如此往复，直至其成功设置state属性的值，即countDown()方法调用成功。</p>
+<p> 在countDown()方法中调用的sync.releaseShared(1)调用时实际还是调用的tryReleaseShared(int)方法，如下是releaseShared(int)方法的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">releaseShared</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (tryReleaseShared(arg)) &#123;</span><br><span class="line">    doReleaseShared();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，在执行sync.releaseShared(1)方法时，其在调用tryReleaseShared(int)方法时会在无限for循环中设置state属性的值，设置成功之后其会根据设置的返回值（此时state已经自减了一），即当前线程是否为将state属性设置为0的线程，来判断是否执行if块中的代码。doReleaseShared()方法主要作用是唤醒调用了await()方法的线程。需要注意的是，如果有多个线程调用了await()方法，这些线程都是以共享的方式等待在await()方法处的，试想，如果以独占的方式等待，那么当计数器减少至零时，就只有一个线程会被唤醒执行await()之后的代码，这显然不符合逻辑。如下是doReleaseShared()方法的实现代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doReleaseShared</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">    Node h = head;  <span class="comment">// 记录等待队列中的头结点的线程</span></span><br><span class="line">    <span class="keyword">if</span> (h != <span class="keyword">null</span> &amp;&amp; h != tail) &#123;   <span class="comment">// 头结点不为空，且头结点不等于尾节点</span></span><br><span class="line">      <span class="keyword">int</span> ws = h.waitStatus;</span><br><span class="line">      <span class="keyword">if</span> (ws == Node.SIGNAL) &#123;  <span class="comment">// SIGNAL状态表示当前节点正在等待被唤醒</span></span><br><span class="line">        <span class="keyword">if</span> (!compareAndSetWaitStatus(h, Node.SIGNAL, <span class="number">0</span>))    <span class="comment">// 清除当前节点的等待状态</span></span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        unparkSuccessor(h); <span class="comment">// 唤醒当前节点的下一个节点</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ws == <span class="number">0</span> &amp;&amp; !compareAndSetWaitStatus(h, <span class="number">0</span>, Node.PROPAGATE))</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (h == head)  <span class="comment">// 如果h还是指向头结点，说明前面这段代码执行过程中没有其他线程对头结点进行过处理</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 在doReleaseShared()方法中（始终注意当前方法是最后一个执行countDown()方法的线程执行的），首先判断头结点不为空，且不为尾节点，说明等待队列中有等待唤醒的线程，这里需要说明的是，在等待队列中，头节点中并没有保存正在等待的线程，其只是一个空的Node对象，真正等待的线程是从头节点的下一个节点开始存放的，因而会有对头结点是否等于尾节点的判断。在判断等待队列中有正在等待的线程之后，其会清除头结点的状态信息，并且调用unparkSuccessor(Node)方法唤醒头结点的下一个节点，使其继续往下执行。如下是unparkSuccessor(Node)方法的具体实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">unparkSuccessor</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> ws = node.waitStatus;</span><br><span class="line">  <span class="keyword">if</span> (ws &lt; <span class="number">0</span>)</span><br><span class="line">    compareAndSetWaitStatus(node, ws, <span class="number">0</span>);   <span class="comment">// 清除当前节点的等待状态</span></span><br><span class="line"></span><br><span class="line">  Node s = node.next;</span><br><span class="line">  <span class="keyword">if</span> (s == <span class="keyword">null</span> || s.waitStatus &gt; <span class="number">0</span>) &#123;  <span class="comment">// s的等待状态大于0说明该节点中的线程已经被外部取消等待了</span></span><br><span class="line">    s = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 从队列尾部往前遍历，找到最后一个处于等待状态的节点，用s记录下来</span></span><br><span class="line">    <span class="keyword">for</span> (Node t = tail; t != <span class="keyword">null</span> &amp;&amp; t != node; t = t.prev)</span><br><span class="line">      <span class="keyword">if</span> (t.waitStatus &lt;= <span class="number">0</span>)</span><br><span class="line">        s = t;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (s != <span class="keyword">null</span>)</span><br><span class="line">    LockSupport.unpark(s.thread);   <span class="comment">// 唤醒离传入节点最近的处于等待状态的节点线程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  可以看到，unparkSuccessor(Node)方法的作用是唤醒离传入节点最近的一个处于等待状态的线程，使其继续往下执行。前面我们讲到过，等待队列中的线程可能有多个，而调用countDown()方法的线程只唤醒了一个处于等待状态的线程，这里剩下的等待线程是如何被唤醒的呢？其实这些线程是被当前唤醒的线程唤醒的。具体的我们可以看看await()方法的具体执行过程。如下是await()方法的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">await</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  sync.acquireSharedInterruptibly(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line">        await()方法实际还是调用了Sync对象的方法acquireSharedInterruptibly(<span class="keyword">int</span>)方法，如下是该方法的具体实现：</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquireSharedInterruptibly</span><span class="params">(<span class="keyword">int</span> arg)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (Thread.interrupted())</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> InterruptedException();</span><br><span class="line">  <span class="keyword">if</span> (tryAcquireShared(arg) &lt; <span class="number">0</span>)</span><br><span class="line">    doAcquireSharedInterruptibly(arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到acquireSharedInterruptibly(int)方法判断当前线程是否需要以共享状态获取执行权限，这里tryAcquireShared(int)方法是AbstractQueuedSynchronizer中的一个模板方法，其具体实现在前面的Sync类中，可以看到，其主要是判断state是否为零，如果为零则返回1，表示当前线程不需要进行权限获取，可直接执行后续代码，返回-1则表示当前线程需要进行共享权限。具体的获取执行权限的代码在doAcquireSharedInterruptibly(int)方法中，如下是该方法的具体实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doAcquireSharedInterruptibly</span><span class="params">(<span class="keyword">int</span> arg)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> Node node = addWaiter(Node.SHARED); <span class="comment">// 使用当前线程创建一个共享模式的节点</span></span><br><span class="line">  <span class="keyword">boolean</span> failed = <span class="keyword">true</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">      <span class="keyword">final</span> Node p = node.predecessor();    <span class="comment">// 获取当前节点的前一个节点</span></span><br><span class="line">      <span class="keyword">if</span> (p == head) &#123;  <span class="comment">// 判断前一个节点是否为头结点</span></span><br><span class="line">        <span class="keyword">int</span> r = tryAcquireShared(arg);  <span class="comment">// 查看当前线程是否获取到了执行权限</span></span><br><span class="line">        <span class="keyword">if</span> (r &gt;= <span class="number">0</span>) &#123;   <span class="comment">// 大于0表示获取了执行权限</span></span><br><span class="line">          setHeadAndPropagate(node, r); <span class="comment">// 将当前节点设置为头结点，并且唤醒后面处于等待状态的节点</span></span><br><span class="line">          p.next = <span class="keyword">null</span>; <span class="comment">// help GC</span></span><br><span class="line">          failed = <span class="keyword">false</span>;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 走到这一步说明没有获取到执行权限，就使当前线程进入“搁置”状态</span></span><br><span class="line">      <span class="keyword">if</span> (shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">          parkAndCheckInterrupt())</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InterruptedException();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (failed)</span><br><span class="line">      cancelAcquire(node);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 在doAcquireSharedInterruptibly(int)方法中，首先使用当前线程创建一个共享模式的节点。然后在一个for循环中判断当前线程是否获取到执行权限，如果有（r &gt;= 0判断）则将当前节点设置为头节点，并且唤醒后续处于共享模式的节点；如果没有，则对调用shouldParkAfterFailedAcquire(Node, Node)和parkAndCheckInterrupt()方法使当前线程处于“搁置”状态，该“搁置”状态是由操作系统进行的，这样可以避免该线程无限循环而获取不到执行权限，造成资源浪费，这里也就是线程处于等待状态的位置，也就是说当线程被阻塞的时候就是阻塞在这个位置。当有多个线程调用await()方法而进入等待状态时，这几个线程都将等待在此处。这里回过头来看前面将的countDown()方法，其会唤醒处于等待队列中离头节点最近的一个处于等待状态的线程，也就是说该线程被唤醒之后会继续从这个位置开始往下执行，此时执行到tryAcquireShared(int)方法时，发现r大于0（因为state已经被置为0了），该线程就会调用setHeadAndPropagate(Node, int)方法，并且退出当前循环，也就开始执行awat()方法之后的代码。这里我们看看setHeadAndPropagate(Node, int)方法的具体实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setHeadAndPropagate</span><span class="params">(Node node, <span class="keyword">int</span> propagate)</span> </span>&#123;</span><br><span class="line">  Node h = head;</span><br><span class="line">  setHead(node);    <span class="comment">// 将当前节点设置为头节点</span></span><br><span class="line">  <span class="comment">// 检查唤醒过程是否需要往下传递，并且检查头结点的等待状态</span></span><br><span class="line">  <span class="keyword">if</span> (propagate &gt; <span class="number">0</span> || h == <span class="keyword">null</span> || h.waitStatus &lt; <span class="number">0</span> ||</span><br><span class="line">      (h = head) == <span class="keyword">null</span> || h.waitStatus &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    Node s = node.next;</span><br><span class="line">    <span class="keyword">if</span> (s == <span class="keyword">null</span> || s.isShared())  <span class="comment">// 如果下一个节点是尝试以共享状态获取获取执行权限的节点，则将其唤醒</span></span><br><span class="line">      doReleaseShared();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> setHeadAndPropagate(Node, int)方法主要作用是设置当前节点为头结点，并且将唤醒工作往下传递，在传递的过程中，其会判断被传递的节点是否是以共享模式尝试获取执行权限的，如果不是，则传递到该节点处为止（一般情况下，等待队列中都只会都是处于共享模式或者处于独占模式的节点）。也就是说，头结点会依次唤醒后续处于共享状态的节点，这也就是共享锁与独占锁的实现方式。这里doReleaseShared()方法也就是我们前面讲到的会将离头结点最近的一个处于等待状态的节点唤醒的方法。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+	
+
+    
+	
+	
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/09/求解连续子数组的最大和/" rel="next" title="求解连续子数组的最大和">
+                <i class="fa fa-chevron-left"></i> 求解连续子数组的最大和
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/09/一千万个数高效求和/" rel="prev" title="一千万个数高效求和">
+                一千万个数高效求和 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="阮严冬——Wings" />
+            
+              <p class="site-author-name" itemprop="name">阮严冬——Wings</p>
+              <p class="site-description motion-element" itemprop="description">程序亦非猿</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用场景"><span class="nav-number">2.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用实例"><span class="nav-number">3.</span> <span class="nav-text">使用实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码解析"><span class="nav-number">4.</span> <span class="nav-text">源码解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阮严冬——Wings</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.2.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+      .copy-btn {
+          display: inline-block;
+          padding: 6px 12px;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 20px;
+          color: #333;
+          white-space: nowrap;
+          vertical-align: middle;
+          cursor: pointer;
+          background-color: #eee;
+          background-image: linear-gradient(#fcfcfc, #eee);
+          border: 1px solid #d5d5d5;
+          border-radius: 3px;
+          user-select: none;
+      }
+
+      .highlight-wrap .copy-btn {
+          transition: opacity .3s ease-in-out;
+          opacity: 0;
+          padding: 2px 6px;
+          position: fixed;
+          right: 4px;
+          top: 8px;
+      }
+
+      .highlight-wrap:hover .copy-btn,
+      .highlight-wrap .copy-btn:focus {
+          opacity: 1
+      }
+
+      .highlight-wrap {
+          transform: translateZ(0);
+      }
+  </style>
+  <script>
+      $('.highlight').each(function(i, e) {
+          var $wrap = $('<div>').addClass('highlight-wrap')
+          $(e).after($wrap)
+          $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+              var code = $(e.target).parent().find('.code').find('.line').map(function(i, e) {
+                  return $(e).text()
+              }).toArray().join('\n')
+              var ta = document.createElement('textarea')
+              document.body.appendChild(ta)
+              ta.style.position = 'fixed'
+              ta.style.top = 0
+              ta.style.left = 0
+              ta.value = code
+              ta.select()
+              ta.focus()
+              document.execCommand('copy')
+              document.body.removeChild(ta)
+          })).append(e)
+      })
+  </script>
+
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="200" src="/js/src/canvas-nest.min.js"></script>
+
+
+</body>
+</html>
