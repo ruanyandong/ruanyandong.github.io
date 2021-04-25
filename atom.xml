@@ -321,9 +321,9 @@
     <link href="https://ruanyandong.github.io/2019/03/30/Android-NDK%E5%AD%A6%E4%B9%A0/"/>
     <id>https://ruanyandong.github.io/2019/03/30/Android-NDK学习/</id>
     <published>2019-03-29T18:52:50.000Z</published>
-    <updated>2019-03-29T18:58:25.093Z</updated>
+    <updated>2021-04-25T16:37:37.428Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://developer.android.google.cn/ndk/guides/android_mk" target="_blank" rel="noopener">Android NDK官网</a><br><a href="https://www.jianshu.com/p/87ce6f565d37" target="_blank" rel="noopener">Android JNI</a><br><a href="https://blog.csdn.net/young_time/article/details/80346631" target="_blank" rel="noopener">使用 Android Studio 写出第一个 NDK 程序</a><br><a href="https://www.jianshu.com/c/a25bf14495d7" target="_blank" rel="noopener">Android NDK 开发之旅</a></p>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://developer.android.google.cn/ndk/guides/android_mk" target="_blank" rel="noopener">Android NDK官网</a><br><a href="https://blog.csdn.net/young_time/article/details/80346631" target="_blank" rel="noopener">使用 Android Studio 写出第一个 NDK 程序</a><br><a href="https://www.jianshu.com/c/a25bf14495d7" target="_blank" rel="noopener">Android NDK 开发之旅</a><br><a href="https://blog.csdn.net/afei__/article/details/81290711" target="_blank" rel="noopener">Android NDK 从入门到精通（汇总篇）</a><br><a href="https://blog.csdn.net/z_x_Qiang/article/details/80298451" target="_blank" rel="noopener">NDK 之 打印Log日志</a></p>]]></content>
     
     <summary type="html">
     
